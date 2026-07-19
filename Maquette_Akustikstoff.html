@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>akustikstoff-schweiz.ch — Nouvelle page d'accueil</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#1E2124;
+    --canvas:#F6F4F0;
+    --canvas-alt:#EEEAE1;
+    --amber:#4B1F73;
+    --amber-dark:#341654;
+    --amber-tint:#D9C6EC;
+    --teal:#5C4A73;
+    --teal-light:#8B5FBF;
+    --brick:#6E2E63;
+    --line:#D9D3C7;
+    --white:#FFFFFF;
+    --ink-soft:#4A4E52;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--canvas);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    font-size:18px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{display:block; max-width:100%;}
+  a{color:inherit; text-decoration:none;}
+  ul{list-style:none;}
+  button{font-family:inherit; cursor:pointer; border:none; background:none;}
+  .wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:600; letter-spacing:-0.01em; color:var(--ink);}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    font-weight:600;
+  }
+
+  /* ===== Announcement bar ===== */
+  .announce{
+    background:var(--ink);
+    color:var(--canvas);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13.5px;
+    letter-spacing:0.03em;
+    text-align:center;
+    padding:9px 16px;
+  }
+  .announce span{color:var(--teal-light);}
+
+  /* ===== Header ===== */
+  header{
+    position:sticky; top:0; z-index:100;
+    background:rgba(246,244,240,0.92);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 32px; gap:28px; max-width:1240px; margin:0 auto;
+  }
+  .logo{display:flex; align-items:center; gap:12px;}
+  .logo-wave{width:62px; height:20px; flex-shrink:0;}
+  .logo-text{font-family:'Inter',sans-serif; font-weight:700; font-size:19px; line-height:1.1; color:var(--ink);}
+  .logo-suffix{font-weight:400; color:var(--ink-soft);}
+  nav.main-nav{display:flex; gap:30px; flex:1; justify-content:center;}
+  nav.main-nav a{
+    font-size:15.5px; font-weight:600; color:var(--ink-soft);
+    position:relative; padding:6px 0;
+    transition:color .15s;
+  }
+  nav.main-nav a:hover{color:var(--ink);}
+  nav.main-nav a::after{
+    content:""; position:absolute; left:0; bottom:0; height:2px; width:0;
+    background:var(--amber); transition:width .18s;
+  }
+  nav.main-nav a:hover::after{width:100%;}
+  .header-actions{display:flex; align-items:center; gap:18px;}
+  .icon-btn{
+    width:40px; height:40px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink); background:transparent; transition:background .15s;
+  }
+  .icon-btn:hover{background:var(--canvas-alt);}
+  .search-pill{
+    display:flex; align-items:center; gap:8px;
+    background:var(--white); border:1px solid var(--line); border-radius:24px;
+    padding:8px 16px; min-width:190px;
+  }
+  .search-pill input{border:none; outline:none; background:none; font-family:'Inter',sans-serif; font-size:14.5px; width:100%; color:var(--ink);}
+  .lang-flags{display:flex; gap:6px; font-size:13px; font-family:'IBM Plex Mono',monospace; color:var(--ink-soft);}
+  .lang-flags span{padding:3px 6px; border-radius:5px; cursor:pointer;}
+  .lang-flags span.active{background:var(--ink); color:var(--canvas);}
+
+  /* ===== Hero ===== */
+  .hero{
+    padding:76px 32px 60px; position:relative; overflow:hidden;
+    background:
+      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(75,31,115,0.14), transparent 60%),
+      var(--canvas);
+  }
+  .hero-inner{
+    max-width:1240px; margin:0 auto;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+  }
+  .hero h1{font-size:clamp(38px,4.6vw,60px); line-height:1.06; margin-bottom:22px;}
+  .hero h1 em{font-style:normal; color:var(--brick);}
+  .hero p.lead{font-size:19px; color:var(--ink-soft); max-width:480px; margin-bottom:32px;}
+  .hero-ctas{display:flex; gap:14px; margin-bottom:38px; flex-wrap:wrap;}
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:700; font-size:15.5px;
+    padding:15px 28px; border-radius:8px; display:inline-flex; align-items:center; gap:9px;
+    transition:transform .15s, box-shadow .15s;
+  }
+  .btn-primary{background:var(--ink); color:var(--canvas);}
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(30,33,36,0.22);}
+  .btn-secondary{background:transparent; color:var(--ink); border:1.5px solid var(--ink);}
+  .btn-secondary:hover{background:var(--ink); color:var(--canvas);}
+  .hero-microtrust{display:flex; gap:22px; flex-wrap:wrap;}
+  .hero-microtrust div{display:flex; align-items:center; gap:8px; font-size:14px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+  .hero-microtrust svg{width:17px; height:17px; color:var(--teal);}
+
+  .hero-visual{position:relative; aspect-ratio:1/0.92;}
+  #waveweave{width:100%; height:100%;}
+
+  /* ===== Trust badges strip ===== */
+  .trust-strip{
+    background:var(--ink); padding:30px 32px;
+  }
+  .trust-grid{
+    max-width:1240px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
+  }
+  .trust-item{display:flex; align-items:center; gap:14px;}
+  .trust-item svg{width:30px; height:30px; color:var(--teal-light); flex-shrink:0;}
+  .trust-item h4{font-family:'Inter',sans-serif; font-size:15.5px; color:var(--canvas); font-weight:700; margin-bottom:2px;}
+  .trust-item p{font-size:13.5px; color:#B9BCBE;}
+
+  /* ===== Section heading ===== */
+  .section{padding:80px 32px;}
+  .section-head{max-width:640px; margin:0 auto 46px; text-align:center;}
+  .section-head .eyebrow{display:block; margin-bottom:12px; text-align:center;}
+  .section-head h2{font-size:clamp(30px,3.4vw,42px); margin-bottom:14px;}
+  .section-head p{color:var(--ink-soft); font-size:17px;}
+
+  /* ===== Categories ===== */
+  .cat-grid{
+    max-width:1240px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
+  }
+  .cat-card{
+    background:var(--white); border:1px solid var(--line); border-radius:16px;
+    padding:30px 26px; transition:transform .18s, box-shadow .18s, border-color .18s;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .cat-card:hover{transform:translateY(-4px); box-shadow:0 16px 30px rgba(30,33,36,0.08); border-color:transparent;}
+  .cat-icon{
+    width:52px; height:52px; border-radius:12px;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--canvas-alt);
+  }
+  .cat-icon svg{width:26px; height:26px; color:var(--teal);}
+  .cat-card h3{font-size:20px; margin-bottom:2px;}
+  .cat-card p{color:var(--ink-soft); font-size:15px; flex:1;}
+  .cat-card .cat-link{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--brick); display:flex; align-items:center; gap:6px; letter-spacing:0.02em;}
+  .cat-card .cat-link svg{width:14px; height:14px;}
+
+  /* ===== Featured products ===== */
+  .product-strip{background:var(--canvas-alt);}
+  .prod-grid{
+    max-width:1240px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(4,1fr); gap:22px;
+  }
+  .prod-card{
+    background:var(--white); border-radius:16px; overflow:hidden; border:1px solid var(--line);
+    display:flex; flex-direction:column; transition:transform .18s, box-shadow .18s;
+  }
+  .prod-card:hover{transform:translateY(-4px); box-shadow:0 18px 32px rgba(30,33,36,0.1);}
+  .prod-media{
+    aspect-ratio:1/0.85; position:relative;
+    background-size:8px 8px;
+  }
+  .swatch-anthracite{background-color:#2B2E31; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.05) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.05) 0 1px, transparent 1px 8px);}
+  .swatch-teal{background-color:#3B5960; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px);}
+  .swatch-brick{background-color:#8C3626; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px);}
+  .swatch-sand{background-color:#B9A883; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.12) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.12) 0 1px, transparent 1px 8px);}
+  .prod-badge{
+    position:absolute; top:12px; left:12px; background:var(--brick); color:var(--white);
+    font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; padding:5px 10px; border-radius:6px;
+  }
+  .prod-fav{
+    position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%;
+    background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center;
+  }
+  .prod-fav svg{width:17px; height:17px; color:var(--ink);}
+  .prod-body{padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px; flex:1;}
+  .prod-eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-soft); letter-spacing:0.05em; text-transform:uppercase;}
+  .prod-body h4{font-family:'Inter',sans-serif; font-size:16.5px; font-weight:700; line-height:1.3;}
+  .prod-price{display:flex; align-items:baseline; gap:10px; margin-top:auto; padding-top:6px;}
+  .prod-price .now{font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--brick);}
+  .prod-price .was{font-size:14px; color:var(--ink-soft); text-decoration:line-through;}
+  .prod-add{
+    margin-top:12px; width:100%; padding:11px; border-radius:8px; background:var(--ink); color:var(--canvas);
+    font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px;
+    transition:background .15s;
+  }
+  .prod-add:hover{background:var(--teal);}
+  .prod-add svg{width:16px; height:16px;}
+
+  /* ===== Why us / signature strip ===== */
+  .signature{
+    background:var(--ink); color:var(--canvas); padding:80px 32px;
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
+  }
+  .signature-inner{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
+  .signature h2{color:var(--canvas); font-size:clamp(28px,3vw,38px); margin-bottom:18px;}
+  .signature p{color:#C7C9CA; font-size:17px; margin-bottom:26px;}
+  .mini-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
+  .mini-stats div{border-left:2px solid var(--teal-light); padding-left:14px;}
+  .mini-stats strong{display:block; font-family:'Fraunces',serif; font-size:28px; color:var(--teal-light);}
+  .mini-stats span{font-size:13px; color:#B9BCBE; font-family:'IBM Plex Mono',monospace;}
+
+  /* ===== Footer ===== */
+  footer{background:var(--canvas-alt); padding:56px 32px 30px; border-top:1px solid var(--line);}
+  .footer-grid{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:36px;}
+  footer h5{font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:16px;}
+  footer li{margin-bottom:10px; font-size:15px; color:var(--ink-soft);}
+  footer li a:hover{color:var(--ink);}
+  .footer-bottom{max-width:1240px; margin:0 auto; padding-top:24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; font-size:13.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+
+  /* ===== Floating cart ===== */
+  .float-cart{
+    position:fixed; bottom:28px; right:28px; z-index:200;
+    background:var(--brick); color:var(--white);
+    width:64px; height:64px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 12px 26px rgba(110,46,99,0.4);
+    transition:transform .18s;
+  }
+  .float-cart:hover{transform:scale(1.06);}
+  .float-cart svg{width:26px; height:26px;}
+  .float-cart .count{
+    position:absolute; top:-4px; right:-4px; background:var(--amber-tint); color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:12px;
+    width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    border:2px solid var(--canvas);
+  }
+  .cart-panel{
+    position:fixed; bottom:104px; right:28px; z-index:200;
+    width:320px; background:var(--white); border-radius:14px; border:1px solid var(--line);
+    box-shadow:0 20px 44px rgba(30,33,36,0.18);
+    padding:20px; opacity:0; pointer-events:none; transform:translateY(12px);
+    transition:opacity .18s, transform .18s;
+  }
+  .cart-panel.open{opacity:1; pointer-events:auto; transform:translateY(0);}
+  .cart-panel h5{font-family:'Fraunces',serif; font-size:17px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;}
+  .cart-line{display:flex; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line);}
+  .cart-line .cs{width:44px; height:44px; border-radius:8px; flex-shrink:0;}
+  .cart-line .ci{flex:1;}
+  .cart-line .ci p{font-size:14px; font-weight:600;}
+  .cart-line .ci span{font-size:12.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+  .cart-panel .btn{width:100%; justify-content:center; margin-top:16px; padding:12px;}
+
+  /* ===== Responsive ===== */
+  @media (max-width:980px){
+    nav.main-nav{display:none;}
+    .search-pill{display:none;}
+    .hero-inner{grid-template-columns:1fr;}
+    .hero-visual{order:-1; max-width:380px; margin:0 auto;}
+    .trust-grid{grid-template-columns:repeat(2,1fr);}
+    .cat-grid{grid-template-columns:repeat(2,1fr);}
+    .prod-grid{grid-template-columns:repeat(2,1fr);}
+    .signature-inner{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:560px){
+    body{font-size:16.5px;}
+    .cat-grid,.prod-grid,.trust-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .cart-panel{right:16px; left:16px; width:auto;}
+    .float-cart{right:16px; bottom:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="announce">Livraison offerte en Suisse &amp; Liechtenstein dès CHF 150 &nbsp;·&nbsp; <span>Offres spéciales jusqu'au 31/12/2026</span></div>
+
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">
+      <svg class="logo-wave" viewBox="0 0 120 34" xmlns="http://www.w3.org/2000/svg">
+        <defs><linearGradient id="logoGradHeader" x1="0" y1="0" x2="120" y2="0"><stop offset="0" stop-color="#2F80ED"/><stop offset="0.55" stop-color="#7A3FC2"/><stop offset="1" stop-color="#4B1F73"/></linearGradient></defs>
+        <path d="M0,17 L6,6 L12,26 L18,10 L24,22 L30,3 L36,28 L42,13 L48,31 L54,7 L60,20 L66,12 L72,26 L78,5 L84,19 L90,29 L96,10 L102,22 L108,14 L114,20 L120,17" stroke="url(#logoGradHeader)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <span class="logo-text">akustikstoff<span class="logo-suffix">-schweiz.ch</span></span>
+    </a>
+    <nav class="main-nav">
+      <a href="#categories">Catégories</a>
+      <a href="#produits">Produits phares</a>
+      <a href="#">Résistant à l'eau</a>
+      <a href="#">Ignifugé</a>
+      <a href="#">Offres spéciales</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <div class="search-pill">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A4E52" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" placeholder="Rechercher un tissu…">
+      </div>
+      <button class="icon-btn" aria-label="Compte">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
+      </button>
+      <div class="lang-flags"><span class="active">FR</span><span>DE</span></div>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow" style="text-align:left; display:block;">Tissu acoustique professionnel</span>
+      <h1>Le tissu qui laisse<br>passer le <em>son</em>,<br>jamais l'esthétique.</h1>
+      <p class="lead">Rouleaux de tissu acoustique pour enceintes hi-fi, panneaux muraux et portes insonorisées. Transparence acoustique certifiée, livré depuis la Suisse.</p>
+      <div class="hero-ctas">
+        <a href="#produits" class="btn btn-primary">
+          Voir les produits phares
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#categories" class="btn btn-secondary">Explorer les catégories</a>
+      </div>
+      <div class="hero-microtrust">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Stock disponible immédiat</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg> Paiement sécurisé</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-7h14l2 7M5 12v7h14v-7M9 19v-4h6v4"/></svg> Expédition CH &amp; FL</div>
+      </div>
+    </div>
+    <div class="hero-visual"><svg id="waveweave" viewBox="0 0 480 440" xmlns="http://www.w3.org/2000/svg"></svg></div>
+  </div>
+</section>
+
+<div class="trust-strip">
+  <div class="trust-grid">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
+      <div><h4>Qualité professionnelle</h4><p>Testée en studio &amp; showroom</p></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l2-7h14l2 7M5 12v7h14v-7M9 19v-4h6v4"/></svg>
+      <div><h4>Livraison rapide</h4><p>Suisse &amp; Liechtenstein, 24–48h</p></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
+      <div><h4>Paiement sécurisé</h4><p>Carte, TWINT, facture</p></div>
+    </div>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg>
+      <div><h4>Satisfait ou remboursé</h4><p>Retour gratuit sous 30 jours</p></div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="categories">
+  <div class="section-head">
+    <span class="eyebrow">Catégories</span>
+    <p>Six familles de tissu acoustique classées par propriété technique, pour trouver la bonne référence en un coup d'œil.</p>
+  </div>
+  <div class="cat-grid">
+
+    <div class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C9 7 5 11.5 5 15a7 7 0 0014 0c0-3.5-4-8-7-13z"/></svg></div>
+      <h3>Résistant à l'eau</h3>
+      <p>Traitement hydrofuge pour extérieur, salles humides et environnements exigeants.</p>
+      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 4c-8 0-16 4-16 12 0 2 1 4 3 4 6 0 13-6 13-13 0-1 0-2-1-3z"/><path d="M4 20l6-6"/></svg></div>
+      <h3>Léger &amp; respirant</h3>
+      <p>Tricotage ouvert à haute perméabilité acoustique, idéal pour les grandes surfaces.</p>
+      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg></div>
+      <h3>Ignifugé</h3>
+      <p>Conforme aux normes de sécurité incendie pour lieux publics et installations pro.</p>
+      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg></div>
+      <h3>Grande largeur XL</h3>
+      <p>Rouleaux extra-larges pour habiller murs et panneaux sans raccord visible.</p>
+      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 6.9L22 9l-5.6 4.9L18 22l-6-4-6 4 1.6-8.1L2 9l7.6-.1z"/></svg></div>
+      <h3>Finition premium</h3>
+      <p>Toucher soyeux et rendu haut de gamme pour meubles hi-fi et intérieurs soignés.</p>
+      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+
+    <div class="cat-card">
+      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+      <h3>Insonorisation renforcée</h3>
+      <p>Densité accrue pour une atténuation optimale sur portes et cloisons.</p>
+      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+    </div>
+
+  </div>
+</section>
+
+<section class="section product-strip" id="produits">
+  <div class="section-head">
+    <span class="eyebrow">Produits phares</span>
+    <h2>Les rouleaux les plus commandés</h2>
+    <p>Sélection de nos formats les plus populaires, en stock et prêts à l'expédition.</p>
+  </div>
+  <div class="prod-grid">
+
+    <div class="prod-card">
+      <div class="prod-media swatch-anthracite">
+        <span class="prod-badge">-53%</span>
+        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+      </div>
+      <div class="prod-body">
+        <span class="prod-eyebrow">Budget Line Standard · 150cm</span>
+        <h4>Rouleau anthracite, 46 mètres</h4>
+        <div class="prod-price"><span class="now">CHF 395</span><span class="was">CHF 848</span></div>
+        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-media swatch-teal">
+        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+      </div>
+      <div class="prod-body">
+        <span class="prod-eyebrow">Struktura XL · 180cm</span>
+        <h4>Rouleau bleu-pétrole, grande largeur</h4>
+        <div class="prod-price"><span class="now">CHF 512</span></div>
+        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-media swatch-brick">
+        <span class="prod-badge">Ignifugé</span>
+        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+      </div>
+      <div class="prod-body">
+        <span class="prod-eyebrow">Budget Line Ignifugé · 150cm</span>
+        <h4>Rouleau terracotta, norme feu M1</h4>
+        <div class="prod-price"><span class="now">CHF 449</span></div>
+        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-media swatch-sand">
+        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
+      </div>
+      <div class="prod-body">
+        <span class="prod-eyebrow">Finessa · 140cm</span>
+        <h4>Rouleau sable, finition premium</h4>
+        <div class="prod-price"><span class="now">CHF 610</span></div>
+        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="signature">
+  <div class="signature-inner">
+    <div>
+      <span class="eyebrow" style="color:var(--teal-light); display:block; margin-bottom:14px;">Notre expertise</span>
+      <h2>Du son à la matière, sans perte au passage.</h2>
+      <p>Chaque référence est mesurée pour sa transparence acoustique avant d'entrer en stock. Ce que vous entendez derrière le tissu, c'est ce que vous entendez sans lui.</p>
+      <a href="#" class="btn btn-primary" style="background:var(--amber-tint); color:var(--ink);">Lire notre méthode de test</a>
+    </div>
+    <div class="mini-stats">
+      <div><strong>12</strong><span>familles de tissu</span></div>
+      <div><strong>&lt;1dB</strong><span>perte acoustique moy.</span></div>
+      <div><strong>24–48h</strong><span>délai d'expédition</span></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="logo" style="margin-bottom:14px;">
+        <svg class="logo-wave" viewBox="0 0 120 34" xmlns="http://www.w3.org/2000/svg">
+          <defs><linearGradient id="logoGradFooter" x1="0" y1="0" x2="120" y2="0"><stop offset="0" stop-color="#2F80ED"/><stop offset="0.55" stop-color="#7A3FC2"/><stop offset="1" stop-color="#4B1F73"/></linearGradient></defs>
+          <path d="M0,17 L6,6 L12,26 L18,10 L24,22 L30,3 L36,28 L42,13 L48,31 L54,7 L60,20 L66,12 L72,26 L78,5 L84,19 L90,29 L96,10 L102,22 L108,14 L114,20 L120,17" stroke="url(#logoGradFooter)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <span class="logo-text">akustikstoff<span class="logo-suffix">-schweiz.ch</span></span>
+      </div>
+      <p style="color:var(--ink-soft); font-size:14.5px; max-width:280px;">Tissu acoustique pour enceintes, panneaux et portes. Basé en Suisse, livré en Suisse &amp; Liechtenstein.</p>
+    </div>
+    <div>
+      <h5>Catégories</h5>
+      <ul><li><a href="#">Résistant à l'eau</a></li><li><a href="#">Léger</a></li><li><a href="#">Ignifugé</a></li><li><a href="#">Struktura XL</a></li></ul>
+    </div>
+    <div>
+      <h5>Support</h5>
+      <ul><li><a href="#">Contact</a></li><li><a href="#">Livraison</a></li><li><a href="#">Retours</a></li><li><a href="#">Mentions légales</a></li></ul>
+    </div>
+    <div>
+      <h5>Confiance</h5>
+      <ul><li><a href="#">Paiement sécurisé</a></li><li><a href="#">Garantie 30 jours</a></li><li><a href="#">Avis clients</a></li></ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 akustikstoff-schweiz.ch</span>
+    <span>Maquette proposée · non affiliée au site original</span>
+  </div>
+</footer>
+
+<div class="cart-panel" id="cartPanel">
+  <h5>Votre panier <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);">2 articles</span></h5>
+  <div class="cart-line">
+    <div class="cs swatch-anthracite"></div>
+    <div class="ci"><p>Rouleau anthracite 46m</p><span>CHF 395.00</span></div>
+  </div>
+  <div class="cart-line" style="border-bottom:none;">
+    <div class="cs swatch-teal"></div>
+    <div class="ci"><p>Rouleau bleu-pétrole</p><span>CHF 512.00</span></div>
+  </div>
+  <a href="#" class="btn btn-primary">Voir le panier</a>
+</div>
+
+<button class="float-cart" id="floatCart" aria-label="Panier">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
+  <span class="count">2</span>
+</button>
+
+<script>
+  // Static mockup: disable every link and button so nothing navigates or opens.
+  // (Floating cart, header nav, category/product links, footer links, etc. are all inert.)
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); });
+    el.style.cursor = 'default';
+  });
+
+  // Generate the "waveform -> weave" signature graphic procedurally
+  (function(){
+    const svg = document.getElementById('waveweave');
+    const W = 480, H = 440;
+    const ns = "http://www.w3.org/2000/svg";
+    const bars = 34;
+    const barW = W / bars;
+    const colors = ['#1E2124','#5C4A73','#4B1F73','#6E2E63'];
+    for(let i=0;i<bars;i++){
+      const t = i/(bars-1);
+      // amplitude follows a decaying sine to suggest a "waveform" reading left to right
+      const amp = (Math.sin(t*Math.PI*3.2) * 0.5 + 0.5) * (1 - t*0.15);
+      const h = 40 + amp * 300;
+      const x = i*barW + barW*0.22;
+      const y = (H - h)/2;
+      const w = barW*0.56;
+      const rect = document.createElementNS(ns,'rect');
+      rect.setAttribute('x', x);
+      rect.setAttribute('y', y);
+      rect.setAttribute('width', w);
+      rect.setAttribute('height', h);
+      rect.setAttribute('rx', w/2);
+      // color shifts from ink -> teal -> amber -> brick across the strip, weighted by position
+      let fill = colors[0];
+      if(t > 0.32 && t <= 0.58) fill = colors[1];
+      else if(t > 0.58 && t <= 0.82) fill = colors[2];
+      else if(t > 0.82) fill = colors[3];
+      rect.setAttribute('fill', fill);
+      rect.setAttribute('opacity', 0.9);
+      svg.appendChild(rect);
+    }
+    // overlay a woven crosshatch on the right third, as if the waveform becomes fabric
+    const weaveGroup = document.createElementNS(ns,'g');
+    weaveGroup.setAttribute('opacity','0.5');
+    for(let i=0;i<16;i++){
+      const x = W*0.62 + i*14;
+      if(x > W) break;
+      const l1 = document.createElementNS(ns,'line');
+      l1.setAttribute('x1', x); l1.setAttribute('y1', 20);
+      l1.setAttribute('x2', x); l1.setAttribute('y2', H-20);
+      l1.setAttribute('stroke', '#1E2124'); l1.setAttribute('stroke-width','1');
+      weaveGroup.appendChild(l1);
+    }
+    for(let j=0;j<20;j++){
+      const y = 20 + j*20;
+      if(y > H-20) break;
+      const l2 = document.createElementNS(ns,'line');
+      l2.setAttribute('x1', W*0.62); l2.setAttribute('y1', y);
+      l2.setAttribute('x2', W); l2.setAttribute('y2', y);
+      l2.setAttribute('stroke', '#1E2124'); l2.setAttribute('stroke-width','1');
+      weaveGroup.appendChild(l2);
+    }
+    svg.appendChild(weaveGroup);
+  })();
+</script>
+
+</body>
+</html>
