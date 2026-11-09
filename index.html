@@ -1,616 +1,415 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>akustikstoff-schweiz.ch — Nouvelle page d'accueil</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cabinet médical de Fontainemelon</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --ink:#1E2124;
-    --canvas:#F6F4F0;
-    --canvas-alt:#EEEAE1;
-    --amber:#4B1F73;
-    --amber-dark:#341654;
-    --amber-tint:#D9C6EC;
-    --teal:#5C4A73;
-    --teal-light:#8B5FBF;
-    --brick:#6E2E63;
-    --line:#D9D3C7;
-    --white:#FFFFFF;
-    --ink-soft:#4A4E52;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--canvas);
-    color:var(--ink);
-    font-family:'Inter',sans-serif;
-    font-size:18px;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  img,svg{display:block; max-width:100%;}
-  a{color:inherit; text-decoration:none;}
-  ul{list-style:none;}
-  button{font-family:inherit; cursor:pointer; border:none; background:none;}
-  .wrap{max-width:1240px; margin:0 auto; padding:0 32px;}
-  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:600; letter-spacing:-0.01em; color:var(--ink);}
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--teal);
-    font-weight:600;
-  }
+/* Layout : une colonne éditoriale, bandes pleine largeur, cartes réservées aux infos actionnables */
+:root{
+  --deep:#1f3a32; --on-deep:#e9f1ec; --on-deep-strong:#fff;
+  --heading:#1f3a32; --primary:#2f5a4c; --primary-hover:#1f3a32; --on-primary:#fff;
+  --green-500:#4f8a73; --green-100:#e3eee8;
+  --cream:#faf7f1; --sand:#f1ebdf; --surface:#fff; --ink:#1d2622; --muted:#5d6a64;
+  --accent:#c8643b; --accent-soft:#f6e3d8; --line:#e2ddd2; --header-bg:rgba(250,247,241,.92);
+  --ok:#3cb371; --radius:18px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --deep:#16241f; --heading:#d5e7dd; --primary:#5f9c84; --primary-hover:#74b199; --on-primary:#0f1714;
+  --green-500:#7fbea3; --green-100:#22352d; --cream:#111916; --sand:#17211d; --surface:#1b2622;
+  --ink:#e4ece7; --muted:#9fb0a8; --accent:#d9774f; --accent-soft:#3a2820; --line:#2c3a34; --header-bg:rgba(17,25,22,.9);
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --deep:#16241f; --heading:#d5e7dd; --primary:#5f9c84; --primary-hover:#74b199; --on-primary:#0f1714;
+  --green-500:#7fbea3; --green-100:#22352d; --cream:#111916; --sand:#17211d; --surface:#1b2622;
+  --ink:#e4ece7; --muted:#9fb0a8; --accent:#d9774f; --accent-soft:#3a2820; --line:#2c3a34; --header-bg:rgba(17,25,22,.9);
+  color-scheme:dark}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+h1,h2,h3{text-wrap:balance}
+body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;font-size:16px}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;color:var(--heading)}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1160px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;transition:.2s}
+.btn-primary{background:var(--primary);color:var(--on-primary)}
+.btn-primary:hover{background:var(--primary-hover)}
+.btn:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.btn-ghost{border:1.5px solid var(--primary);color:var(--primary)}
+.btn-ghost:hover{background:var(--green-100)}
+.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-500);font-weight:600;margin-bottom:12px}
 
-  /* ===== Announcement bar ===== */
-  .announce{
-    background:var(--ink);
-    color:var(--canvas);
-    font-family:'IBM Plex Mono',monospace;
-    font-size:13.5px;
-    letter-spacing:0.03em;
-    text-align:center;
-    padding:9px 16px;
-  }
-  .announce span{color:var(--teal-light);}
+/* Bandeau urgence */
+.alert{background:var(--deep);color:var(--on-deep);font-size:14px}
+.alert .wrap{display:flex;gap:24px;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
+.alert strong{color:var(--on-deep-strong)}
+.alert .pill{background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;font-weight:600;margin-right:8px;font-size:12px}
 
-  /* ===== Header ===== */
-  header{
-    position:sticky; top:0; z-index:100;
-    background:rgba(246,244,240,0.92);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-  }
-  .header-inner{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 32px; gap:28px; max-width:1240px; margin:0 auto;
-  }
-  .logo{display:flex; align-items:center; gap:12px;}
-  .logo-wave{width:62px; height:20px; flex-shrink:0;}
-  .logo-text{font-family:'Inter',sans-serif; font-weight:700; font-size:19px; line-height:1.1; color:var(--ink);}
-  .logo-suffix{font-weight:400; color:var(--ink-soft);}
-  nav.main-nav{display:flex; gap:30px; flex:1; justify-content:center;}
-  nav.main-nav a{
-    font-size:15.5px; font-weight:600; color:var(--ink-soft);
-    position:relative; padding:6px 0;
-    transition:color .15s;
-  }
-  nav.main-nav a:hover{color:var(--ink);}
-  nav.main-nav a::after{
-    content:""; position:absolute; left:0; bottom:0; height:2px; width:0;
-    background:var(--amber); transition:width .18s;
-  }
-  nav.main-nav a:hover::after{width:100%;}
-  .header-actions{display:flex; align-items:center; gap:18px;}
-  .icon-btn{
-    width:40px; height:40px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    color:var(--ink); background:transparent; transition:background .15s;
-  }
-  .icon-btn:hover{background:var(--canvas-alt);}
-  .search-pill{
-    display:flex; align-items:center; gap:8px;
-    background:var(--white); border:1px solid var(--line); border-radius:24px;
-    padding:8px 16px; min-width:190px;
-  }
-  .search-pill input{border:none; outline:none; background:none; font-family:'Inter',sans-serif; font-size:14.5px; width:100%; color:var(--ink);}
-  .lang-flags{display:flex; gap:6px; font-size:13px; font-family:'IBM Plex Mono',monospace; color:var(--ink-soft);}
-  .lang-flags span{padding:3px 6px; border-radius:5px; cursor:pointer;}
-  .lang-flags span.active{background:var(--ink); color:var(--canvas);}
+/* Header */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--cream)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--header-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-mark{width:42px;height:42px;border-radius:12px;background:var(--primary);display:grid;place-items:center}
+.logo-text b{display:block;font-family:Fraunces,serif;font-size:18px;color:var(--heading);line-height:1.1}
+.logo-text span{font-size:12.5px;color:var(--muted)}
+nav ul{display:flex;gap:28px;list-style:none;font-size:15px;font-weight:500}
+nav a:hover{color:var(--green-500)}
+.menu-btn{display:none;background:none;border:0;font-size:26px;color:var(--heading)}
 
-  /* ===== Hero ===== */
-  .hero{
-    padding:76px 32px 60px; position:relative; overflow:hidden;
-    background:
-      radial-gradient(ellipse 900px 500px at 85% -10%, rgba(75,31,115,0.14), transparent 60%),
-      var(--canvas);
-  }
-  .hero-inner{
-    max-width:1240px; margin:0 auto;
-    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
-  }
-  .hero h1{font-size:clamp(38px,4.6vw,60px); line-height:1.06; margin-bottom:22px;}
-  .hero h1 em{font-style:normal; color:var(--brick);}
-  .hero p.lead{font-size:19px; color:var(--ink-soft); max-width:480px; margin-bottom:32px;}
-  .hero-ctas{display:flex; gap:14px; margin-bottom:38px; flex-wrap:wrap;}
-  .btn{
-    font-family:'Inter',sans-serif; font-weight:700; font-size:15.5px;
-    padding:15px 28px; border-radius:8px; display:inline-flex; align-items:center; gap:9px;
-    transition:transform .15s, box-shadow .15s;
-  }
-  .btn-primary{background:var(--ink); color:var(--canvas);}
-  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 10px 22px rgba(30,33,36,0.22);}
-  .btn-secondary{background:transparent; color:var(--ink); border:1.5px solid var(--ink);}
-  .btn-secondary:hover{background:var(--ink); color:var(--canvas);}
-  .hero-microtrust{display:flex; gap:22px; flex-wrap:wrap;}
-  .hero-microtrust div{display:flex; align-items:center; gap:8px; font-size:14px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
-  .hero-microtrust svg{width:17px; height:17px; color:var(--teal);}
+/* Hero */
+.hero{padding:72px 0 40px;position:relative;overflow:hidden}
+.hero .wrap:not(.quick){display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+.hero h1{font-size:clamp(38px,5vw,60px);margin-bottom:22px}
+.hero h1 em{font-style:italic;color:var(--green-500)}
+.hero p.lead{font-size:18px;color:var(--muted);max-width:520px;margin-bottom:32px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.hero-visual{max-width:100%;position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/4.2;background:var(--green-100)}
+.hero-visual svg{width:100%;height:100%;display:block}
+.hero-card{position:absolute;left:-28px;bottom:36px;background:var(--surface);border-radius:16px;padding:16px 20px;box-shadow:0 18px 40px -12px rgba(31,58,50,.25);display:flex;gap:14px;align-items:center}
+.hero-card .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 5px color-mix(in srgb,var(--ok) 15%,transparent)}
+.hero-card small{display:block;color:var(--muted);font-size:13px}
+.hero-card b{font-size:15px}
+.hero-wrap-visual{position:relative}
 
-  .hero-visual{position:relative; aspect-ratio:1/0.92;}
-  #waveweave{width:100%; height:100%;}
+/* Quick infos */
+.quick{margin-top:24px}
+.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-radius:var(--radius);border:1px solid var(--line);overflow:hidden}
+.quick-item{padding:26px 24px;border-right:1px solid var(--line)}
+.quick-item:last-child{border-right:0}
+.quick-item .ico,.access .ico{color:var(--primary)}
+.quick-item .ico{width:40px;height:40px;border-radius:10px;background:var(--green-100);display:grid;place-items:center;margin-bottom:14px}
+.quick-item h3{font-family:Inter,sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:4px}
+.quick-item p{font-weight:600;font-size:17px}
+.quick-item p small{display:block;font-weight:400;color:var(--muted);font-size:14px}
 
-  /* ===== Trust badges strip ===== */
-  .trust-strip{
-    background:var(--ink); padding:30px 32px;
-  }
-  .trust-grid{
-    max-width:1240px; margin:0 auto;
-    display:grid; grid-template-columns:repeat(4,1fr); gap:24px;
-  }
-  .trust-item{display:flex; align-items:center; gap:14px;}
-  .trust-item svg{width:30px; height:30px; color:var(--teal-light); flex-shrink:0;}
-  .trust-item h4{font-family:'Inter',sans-serif; font-size:15.5px; color:var(--canvas); font-weight:700; margin-bottom:2px;}
-  .trust-item p{font-size:13.5px; color:#B9BCBE;}
+section{padding:96px 0}
+.section-head{max-width:640px;margin-bottom:48px}
+.section-head h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:14px}
+.section-head p{color:var(--muted);font-size:17px}
 
-  /* ===== Section heading ===== */
-  .section{padding:80px 32px;}
-  .section-head{max-width:640px; margin:0 auto 46px; text-align:center;}
-  .section-head .eyebrow{display:block; margin-bottom:12px; text-align:center;}
-  .section-head h2{font-size:clamp(30px,3.4vw,42px); margin-bottom:14px;}
-  .section-head p{color:var(--ink-soft); font-size:17px;}
+/* Prestations */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.service{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:.25s}
+.service:hover{transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(31,58,50,.25);border-color:transparent}
+.service .ico{width:48px;height:48px;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;margin-bottom:20px}
+.service h3{font-size:21px;margin-bottom:8px}
+.service p{color:var(--muted);font-size:15px}
 
-  /* ===== Categories ===== */
-  .cat-grid{
-    max-width:1240px; margin:0 auto;
-    display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
-  }
-  .cat-card{
-    background:var(--white); border:1px solid var(--line); border-radius:16px;
-    padding:30px 26px; transition:transform .18s, box-shadow .18s, border-color .18s;
-    display:flex; flex-direction:column; gap:14px;
-  }
-  .cat-card:hover{transform:translateY(-4px); box-shadow:0 16px 30px rgba(30,33,36,0.08); border-color:transparent;}
-  .cat-icon{
-    width:52px; height:52px; border-radius:12px;
-    display:flex; align-items:center; justify-content:center;
-    background:var(--canvas-alt);
-  }
-  .cat-icon svg{width:26px; height:26px; color:var(--teal);}
-  .cat-card h3{font-size:20px; margin-bottom:2px;}
-  .cat-card p{color:var(--ink-soft); font-size:15px; flex:1;}
-  .cat-card .cat-link{font-family:'IBM Plex Mono',monospace; font-size:13px; font-weight:600; color:var(--brick); display:flex; align-items:center; gap:6px; letter-spacing:0.02em;}
-  .cat-card .cat-link svg{width:14px; height:14px;}
+/* Equipe */
+.team{background:var(--sand)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.doc{background:var(--surface);border-radius:var(--radius);overflow:hidden}
+.doc .ph{aspect-ratio:1/1;display:grid;place-items:center;font-family:Fraunces,serif;font-size:44px;color:#fff}
+.doc .info{padding:18px 20px 22px}
+.doc h3{font-size:18px;margin-bottom:2px}
+.doc p{font-size:14px;color:var(--muted)}
+.doc .tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:var(--green-500);background:var(--green-100);padding:3px 10px;border-radius:999px}
+.team-note{margin-top:28px;font-size:14px;color:var(--muted)}
 
-  /* ===== Featured products ===== */
-  .product-strip{background:var(--canvas-alt);}
-  .prod-grid{
-    max-width:1240px; margin:0 auto;
-    display:grid; grid-template-columns:repeat(4,1fr); gap:22px;
-  }
-  .prod-card{
-    background:var(--white); border-radius:16px; overflow:hidden; border:1px solid var(--line);
-    display:flex; flex-direction:column; transition:transform .18s, box-shadow .18s;
-  }
-  .prod-card:hover{transform:translateY(-4px); box-shadow:0 18px 32px rgba(30,33,36,0.1);}
-  .prod-media{
-    aspect-ratio:1/0.85; position:relative;
-    background-size:8px 8px;
-  }
-  .swatch-anthracite{background-color:#2B2E31; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.05) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.05) 0 1px, transparent 1px 8px);}
-  .swatch-teal{background-color:#3B5960; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px);}
-  .swatch-brick{background-color:#8C3626; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.08) 0 1px, transparent 1px 8px);}
-  .swatch-sand{background-color:#B9A883; background-image:repeating-linear-gradient(45deg,rgba(255,255,255,0.12) 0 1px, transparent 1px 8px), repeating-linear-gradient(-45deg,rgba(255,255,255,0.12) 0 1px, transparent 1px 8px);}
-  .prod-badge{
-    position:absolute; top:12px; left:12px; background:var(--brick); color:var(--white);
-    font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; padding:5px 10px; border-radius:6px;
-  }
-  .prod-fav{
-    position:absolute; top:12px; right:12px; width:34px; height:34px; border-radius:50%;
-    background:rgba(255,255,255,0.9); display:flex; align-items:center; justify-content:center;
-  }
-  .prod-fav svg{width:17px; height:17px; color:var(--ink);}
-  .prod-body{padding:18px 20px 20px; display:flex; flex-direction:column; gap:8px; flex:1;}
-  .prod-eyebrow{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--ink-soft); letter-spacing:0.05em; text-transform:uppercase;}
-  .prod-body h4{font-family:'Inter',sans-serif; font-size:16.5px; font-weight:700; line-height:1.3;}
-  .prod-price{display:flex; align-items:baseline; gap:10px; margin-top:auto; padding-top:6px;}
-  .prod-price .now{font-family:'Fraunces',serif; font-size:22px; font-weight:600; color:var(--brick);}
-  .prod-price .was{font-size:14px; color:var(--ink-soft); text-decoration:line-through;}
-  .prod-add{
-    margin-top:12px; width:100%; padding:11px; border-radius:8px; background:var(--ink); color:var(--canvas);
-    font-weight:700; font-size:14px; display:flex; align-items:center; justify-content:center; gap:8px;
-    transition:background .15s;
-  }
-  .prod-add:hover{background:var(--teal);}
-  .prod-add svg{width:16px; height:16px;}
+/* RDV */
+.rdv .wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.rdv-main{background:#2f5a4c;color:#e9f1ec;border-radius:28px;padding:48px;position:relative;overflow:hidden}
+.rdv-main h2{color:#fff;font-size:38px;margin-bottom:16px}
+.rdv-main p{margin-bottom:28px;max-width:420px}
+.rdv-main .btn-primary{background:#fff;color:#1f3a32}
+.rdv-main .btn-ghost{border-color:#ffffff88;color:#fff}
+.rdv-main .btn-ghost:hover{background:#ffffff1a}
+.rdv-main .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.rdv-main .circle{position:absolute;right:-80px;bottom:-80px;width:260px;height:260px;border-radius:50%;border:40px solid #ffffff12}
+.hours{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:40px}
+.hours h3{font-size:24px;margin-bottom:20px}
+.hours table{width:100%;border-collapse:collapse;font-size:15px}
+.hours td{padding:12px 0;border-bottom:1px dashed var(--line)}
+.hours td:last-child{text-align:right;font-weight:600}
+.hours tr.closed td:last-child{color:var(--muted);font-weight:400}
+.hours .today td{color:var(--green-500)}
+.hours .note{margin-top:18px;font-size:13.5px;color:var(--muted)}
 
-  /* ===== Why us / signature strip ===== */
-  .signature{
-    background:var(--ink); color:var(--canvas); padding:80px 32px;
-    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;
-  }
-  .signature-inner{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;}
-  .signature h2{color:var(--canvas); font-size:clamp(28px,3vw,38px); margin-bottom:18px;}
-  .signature p{color:#C7C9CA; font-size:17px; margin-bottom:26px;}
-  .mini-stats{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
-  .mini-stats div{border-left:2px solid var(--teal-light); padding-left:14px;}
-  .mini-stats strong{display:block; font-family:'Fraunces',serif; font-size:28px; color:var(--teal-light);}
-  .mini-stats span{font-size:13px; color:#B9BCBE; font-family:'IBM Plex Mono',monospace;}
+/* Urgences */
+.urg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.urg{border-radius:var(--radius);padding:28px;border:1px solid var(--line);background:var(--surface)}
+.urg.red{background:var(--accent);color:#fff;border-color:var(--accent)}
+.urg.red h3,.urg.red .num{color:#fff}
+.urg h3{font-size:19px;margin-bottom:6px}
+.urg .num{font-family:Fraunces,serif;font-size:34px;color:var(--heading);margin:8px 0 4px;display:block}
+.urg p{font-size:14.5px;opacity:.9}
 
-  /* ===== Footer ===== */
-  footer{background:var(--canvas-alt); padding:56px 32px 30px; border-top:1px solid var(--line);}
-  .footer-grid{max-width:1240px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; padding-bottom:36px;}
-  footer h5{font-family:'IBM Plex Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:16px;}
-  footer li{margin-bottom:10px; font-size:15px; color:var(--ink-soft);}
-  footer li a:hover{color:var(--ink);}
-  .footer-bottom{max-width:1240px; margin:0 auto; padding-top:24px; border-top:1px solid var(--line); display:flex; justify-content:space-between; font-size:13.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
+/* Accès */
+.access .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.map{max-width:100%;border-radius:28px;overflow:hidden;aspect-ratio:16/11;background:#e9e4d8;border:1px solid var(--line)}
+.map svg{width:100%;height:100%;display:block}
+.access ul{list-style:none;margin-top:24px}
+.access li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+.access li b{display:block}
+.access li span{color:var(--muted);font-size:15px}
+.access .ico{flex:none;width:36px;height:36px;border-radius:10px;background:var(--green-100);display:grid;place-items:center}
 
-  /* ===== Floating cart ===== */
-  .float-cart{
-    position:fixed; bottom:28px; right:28px; z-index:200;
-    background:var(--brick); color:var(--white);
-    width:64px; height:64px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 12px 26px rgba(110,46,99,0.4);
-    transition:transform .18s;
-  }
-  .float-cart:hover{transform:scale(1.06);}
-  .float-cart svg{width:26px; height:26px;}
-  .float-cart .count{
-    position:absolute; top:-4px; right:-4px; background:var(--amber-tint); color:var(--ink);
-    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:12px;
-    width:22px; height:22px; border-radius:50%; display:flex; align-items:center; justify-content:center;
-    border:2px solid var(--canvas);
-  }
-  .cart-panel{
-    position:fixed; bottom:104px; right:28px; z-index:200;
-    width:320px; background:var(--white); border-radius:14px; border:1px solid var(--line);
-    box-shadow:0 20px 44px rgba(30,33,36,0.18);
-    padding:20px; opacity:0; pointer-events:none; transform:translateY(12px);
-    transition:opacity .18s, transform .18s;
-  }
-  .cart-panel.open{opacity:1; pointer-events:auto; transform:translateY(0);}
-  .cart-panel h5{font-family:'Fraunces',serif; font-size:17px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;}
-  .cart-line{display:flex; gap:12px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line);}
-  .cart-line .cs{width:44px; height:44px; border-radius:8px; flex-shrink:0;}
-  .cart-line .ci{flex:1;}
-  .cart-line .ci p{font-size:14px; font-weight:600;}
-  .cart-line .ci span{font-size:12.5px; color:var(--ink-soft); font-family:'IBM Plex Mono',monospace;}
-  .cart-panel .btn{width:100%; justify-content:center; margin-top:16px; padding:12px;}
+footer{background:var(--deep);color:#c7d6ce;padding:64px 0 28px;font-size:15px}
+footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:48px}
+footer h4{color:#fff;font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
+footer li{list-style:none;margin-bottom:8px}
+footer .logo-text b{color:#fff}
+footer .logo-text span{color:#a9bdb3}
+footer .bottom{border-top:1px solid #ffffff1f;padding-top:22px;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:12px}
 
-  /* ===== Responsive ===== */
-  @media (max-width:980px){
-    nav.main-nav{display:none;}
-    .search-pill{display:none;}
-    .hero-inner{grid-template-columns:1fr;}
-    .hero-visual{order:-1; max-width:380px; margin:0 auto;}
-    .trust-grid{grid-template-columns:repeat(2,1fr);}
-    .cat-grid{grid-template-columns:repeat(2,1fr);}
-    .prod-grid{grid-template-columns:repeat(2,1fr);}
-    .signature-inner{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:repeat(2,1fr);}
-  }
-  @media (max-width:560px){
-    body{font-size:16.5px;}
-    .cat-grid,.prod-grid,.trust-grid{grid-template-columns:1fr;}
-    .footer-grid{grid-template-columns:1fr;}
-    .cart-panel{right:16px; left:16px; width:auto;}
-    .float-cart{right:16px; bottom:20px;}
-  }
+.mock-badge{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:#1d2622;color:#fff;font-size:12px;padding:7px 12px;border-radius:999px;opacity:.85;z-index:20}
+
+@media (max-width:960px){
+  nav ul{display:none}
+  .menu-btn{display:block}
+  header .btn{display:none}
+  .hero .wrap:not(.quick),.rdv .wrap,.access .wrap{grid-template-columns:1fr}
+  .hero-card{left:16px}
+  .quick-grid{grid-template-columns:1fr 1fr}
+  .quick-item:nth-child(2){border-right:0}
+  .quick-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .services-grid,.urg-grid{grid-template-columns:1fr 1fr}
+  .team-grid{grid-template-columns:1fr 1fr}
+  footer .cols{grid-template-columns:1fr 1fr}
+}
+@media (max-width:600px){
+  .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  section{padding:64px 0}
+  .hero{padding-top:40px}
+  .quick-grid,.services-grid,.urg-grid{grid-template-columns:1fr}
+  .quick-item{border-right:0!important;border-bottom:1px solid var(--line)}
+  .rdv-main,.hours{padding:30px}
+  .alert .hide-sm{display:none}
+  .logo-text span{display:none}
+  footer .cols{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
-
-<div class="announce">Livraison offerte en Suisse &amp; Liechtenstein dès CHF 150 &nbsp;·&nbsp; <span>Offres spéciales jusqu'au 31/12/2026</span></div>
+<div class="alert">
+  <div class="wrap">
+    <div><span class="pill">Urgence vitale</span>Composez le <strong>144</strong></div>
+    <div class="hide-sm">Médecin de garde (canton de Neuchâtel) : <strong>0848 134 134</strong></div>
+  </div>
+</div>
 
 <header>
-  <div class="header-inner">
-    <a class="logo" href="#">
-      <svg class="logo-wave" viewBox="0 0 120 34" xmlns="http://www.w3.org/2000/svg">
-        <defs><linearGradient id="logoGradHeader" x1="0" y1="0" x2="120" y2="0"><stop offset="0" stop-color="#2F80ED"/><stop offset="0.55" stop-color="#7A3FC2"/><stop offset="1" stop-color="#4B1F73"/></linearGradient></defs>
-        <path d="M0,17 L6,6 L12,26 L18,10 L24,22 L30,3 L36,28 L42,13 L48,31 L54,7 L60,20 L66,12 L72,26 L78,5 L84,19 L90,29 L96,10 L102,22 L108,14 L114,20 L120,17" stroke="url(#logoGradHeader)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-      </svg>
-      <span class="logo-text">akustikstoff<span class="logo-suffix">-schweiz.ch</span></span>
-    </a>
-    <nav class="main-nav">
-      <a href="#categories">Catégories</a>
-      <a href="#produits">Produits phares</a>
-      <a href="#">Résistant à l'eau</a>
-      <a href="#">Ignifugé</a>
-      <a href="#">Offres spéciales</a>
-      <a href="#">Contact</a>
-    </nav>
-    <div class="header-actions">
-      <div class="search-pill">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4A4E52" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input type="text" placeholder="Rechercher un tissu…">
+  <div class="wrap">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="#fff"/></svg>
       </div>
-      <button class="icon-btn" aria-label="Compte">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/></svg>
-      </button>
-      <div class="lang-flags"><span class="active">FR</span><span>DE</span></div>
-    </div>
+      <div class="logo-text"><b>Cabinet médical de groupe</b><span>Fontainemelon · Val-de-Ruz</span></div>
+    </a>
+    <nav><ul>
+      <li><a href="#prestations">Prestations</a></li>
+      <li><a href="#equipe">Équipe</a></li>
+      <li><a href="#rdv">Horaires</a></li>
+      <li><a href="#urgences">Urgences</a></li>
+      <li><a href="#acces">Accès</a></li>
+    </ul></nav>
+    <a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a>
+    <button class="menu-btn" aria-label="Menu">☰</button>
   </div>
 </header>
 
 <section class="hero">
-  <div class="hero-inner">
+  <div class="wrap">
     <div>
-      <span class="eyebrow" style="text-align:left; display:block;">Tissu acoustique professionnel</span>
-      <h1>Bienvenue chez<br><em>Akustikstoff</em></h1>
-      <p class="lead">Rouleaux de tissu acoustique pour enceintes hi-fi, panneaux muraux et portes insonorisées. Transparence acoustique certifiée, livré depuis la Suisse.</p>
-      <div class="hero-ctas">
-        <a href="#produits" class="btn btn-primary">
-          Voir les produits phares
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
-        <a href="#categories" class="btn btn-secondary">Explorer les catégories</a>
-      </div>
-      <div class="hero-microtrust">
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Stock disponible immédiat</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg> Paiement sécurisé</div>
-        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-7h14l2 7M5 12v7h14v-7M9 19v-4h6v4"/></svg> Expédition CH &amp; FL</div>
+      <div class="eyebrow">Médecine de famille au cœur du Val-de-Ruz</div>
+      <h1>Votre santé, suivie <em>de près</em> par une équipe qui vous connaît.</h1>
+      <p class="lead">Nos médecins généralistes vous accompagnent à chaque étape de la vie : consultations, suivi des maladies chroniques, prévention et petites urgences.</p>
+      <div class="ctas">
+        <a href="#rdv" class="btn btn-primary">Prendre rendez-vous en ligne →</a>
+        <a href="tel:0328534953" class="btn btn-ghost">032 853 49 53</a>
       </div>
     </div>
-    <div class="hero-visual"><svg id="waveweave" viewBox="0 0 480 440" xmlns="http://www.w3.org/2000/svg"></svg></div>
+    <div class="hero-wrap-visual">
+      <div class="hero-visual">
+        <!-- Illustration : collines du Val-de-Ruz -->
+        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f6e3d8"/><stop offset="1" stop-color="#e3eee8"/>
+            </linearGradient>
+          </defs>
+          <rect width="400" height="420" fill="url(#sky)"/>
+          <circle cx="292" cy="112" r="46" fill="#f3c9ad"/>
+          <path d="M0 220 Q80 150 170 190 T400 160 V420 H0Z" fill="#a9c9b8"/>
+          <path d="M0 270 Q110 210 220 255 T400 230 V420 H0Z" fill="#7fae96"/>
+          <path d="M0 320 Q120 280 240 315 T400 300 V420 H0Z" fill="#4f8a73"/>
+          <path d="M0 370 Q140 340 260 365 T400 355 V420 H0Z" fill="#2f5a4c"/>
+          <!-- bâtiment -->
+          <g transform="translate(120 250)">
+            <rect x="0" y="30" width="140" height="80" rx="4" fill="#faf7f1"/>
+            <path d="M-8 34 L70 0 L148 34Z" fill="#c8643b"/>
+            <rect x="58" y="62" width="24" height="48" rx="3" fill="#2f5a4c"/>
+            <rect x="16" y="50" width="26" height="22" rx="3" fill="#cfe1d7"/>
+            <rect x="98" y="50" width="26" height="22" rx="3" fill="#cfe1d7"/>
+            <rect x="63" y="38" width="14" height="14" fill="#c8643b" opacity="0"/>
+            <path d="M66 14h8v6h6v8h-6v6h-8v-6h-6v-8h6z" fill="#fff"/>
+          </g>
+          <!-- arbres -->
+          <g fill="#2f5a4c"><circle cx="60" cy="300" r="18"/><rect x="58" y="300" width="4" height="26"/><circle cx="330" cy="292" r="22"/><rect x="328" y="292" width="4" height="30"/></g>
+        </svg>
+      </div>
+      <div class="hero-card">
+        <span class="dot"></span>
+        <div><small>Aujourd'hui</small><b>Ouvert · 8h00 – 18h00</b></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap quick">
+    <div class="quick-grid">
+      <div class="quick-item">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
+        <h3>Téléphone</h3><p>032 853 49 53<small>Secrétariat</small></p>
+      </div>
+      <div class="quick-item">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <h3>Adresse</h3><p>Av. Robert 24<small>2052 Fontainemelon</small></p>
+      </div>
+      <div class="quick-item">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+        <h3>Horaires</h3><p>Lun – Ven<small>8h00 – 12h00 · 13h30 – 18h00</small></p>
+      </div>
+      <div class="quick-item">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></div>
+        <h3>Nouveaux patients</h3><p>Bienvenus<small>Selon disponibilités</small></p>
+      </div>
+    </div>
   </div>
 </section>
 
-<div class="trust-strip">
-  <div class="trust-grid">
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4z"/></svg>
-      <div><h4>Qualité professionnelle</h4><p>Testée en studio &amp; showroom</p></div>
+<section id="prestations">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Prestations</div>
+      <h2>Une prise en charge complète, près de chez vous</h2>
+      <p>Notre cabinet de groupe réunit des médecins en médecine interne générale et une équipe d'assistantes médicales pour un suivi global et coordonné.</p>
     </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l2-7h14l2 7M5 12v7h14v-7M9 19v-4h6v4"/></svg>
-      <div><h4>Livraison rapide</h4><p>Suisse &amp; Liechtenstein, 24–48h</p></div>
+    <div class="services-grid">
+      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><h3>Médecine générale</h3><p>Consultations pour adultes et enfants, bilans de santé et certificats médicaux.</p></div>
+      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Maladies chroniques</h3><p>Suivi du diabète, de l'hypertension, des maladies cardiovasculaires et respiratoires.</p></div>
+      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/></svg></div><h3>Laboratoire</h3><p>Prises de sang et analyses courantes réalisées sur place, résultats rapides.</p></div>
+      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Prévention & vaccins</h3><p>Vaccinations, conseils aux voyageurs, dépistages et check-ups.</p></div>
+      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>ECG & examens</h3><p>Électrocardiogramme, spirométrie et petits examens complémentaires au cabinet.</p></div>
+      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div><h3>Visites à domicile</h3><p>Pour nos patients ne pouvant pas se déplacer, sur demande auprès du secrétariat.</p></div>
     </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg>
-      <div><h4>Paiement sécurisé</h4><p>Carte, TWINT, facture</p></div>
-    </div>
-    <div class="trust-item">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 6L9 17l-5-5"/></svg>
-      <div><h4>Satisfait ou remboursé</h4><p>Retour gratuit sous 30 jours</p></div>
-    </div>
-  </div>
-</div>
-
-<section class="section" id="categories">
-  <div class="section-head">
-    <span class="eyebrow">Catégories</span>
-    <p>Six familles de tissu acoustique classées par propriété technique, pour trouver la bonne référence en un coup d'œil.</p>
-  </div>
-  <div class="cat-grid">
-
-    <div class="cat-card">
-      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C9 7 5 11.5 5 15a7 7 0 0014 0c0-3.5-4-8-7-13z"/></svg></div>
-      <h3>Résistant à l'eau</h3>
-      <p>Traitement hydrofuge pour extérieur, salles humides et environnements exigeants.</p>
-      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 4c-8 0-16 4-16 12 0 2 1 4 3 4 6 0 13-6 13-13 0-1 0-2-1-3z"/><path d="M4 20l6-6"/></svg></div>
-      <h3>Léger &amp; respirant</h3>
-      <p>Tricotage ouvert à haute perméabilité acoustique, idéal pour les grandes surfaces.</p>
-      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 11-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg></div>
-      <h3>Ignifugé</h3>
-      <p>Conforme aux normes de sécurité incendie pour lieux publics et installations pro.</p>
-      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12h18M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg></div>
-      <h3>Grande largeur XL</h3>
-      <p>Rouleaux extra-larges pour habiller murs et panneaux sans raccord visible.</p>
-      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 6.9L22 9l-5.6 4.9L18 22l-6-4-6 4 1.6-8.1L2 9l7.6-.1z"/></svg></div>
-      <h3>Finition premium</h3>
-      <p>Toucher soyeux et rendu haut de gamme pour meubles hi-fi et intérieurs soignés.</p>
-      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </div>
-
-    <div class="cat-card">
-      <div class="cat-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 3v6c0 5-3 8-7 9-4-1-7-4-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
-      <h3>Insonorisation renforcée</h3>
-      <p>Densité accrue pour une atténuation optimale sur portes et cloisons.</p>
-      <span class="cat-link">Découvrir <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-    </div>
-
   </div>
 </section>
 
-<section class="section product-strip" id="produits">
-  <div class="section-head">
-    <span class="eyebrow">Produits phares</span>
-    <h2>Les rouleaux les plus commandés</h2>
-    <p>Sélection de nos formats les plus populaires, en stock et prêts à l'expédition.</p>
-  </div>
-  <div class="prod-grid">
-
-    <div class="prod-card">
-      <div class="prod-media swatch-anthracite">
-        <span class="prod-badge">-53%</span>
-        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
-      </div>
-      <div class="prod-body">
-        <span class="prod-eyebrow">Budget Line Standard · 150cm</span>
-        <h4>Rouleau anthracite, 46 mètres</h4>
-        <div class="prod-price"><span class="now">CHF 395</span><span class="was">CHF 848</span></div>
-        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
-      </div>
+<section class="team" id="equipe">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Notre équipe</div>
+      <h2>Des médecins de famille engagés</h2>
+      <p>Tous spécialistes FMH en médecine interne générale, nos médecins travaillent ensemble pour assurer la continuité de vos soins.</p>
     </div>
-
-    <div class="prod-card">
-      <div class="prod-media swatch-teal">
-        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
-      </div>
-      <div class="prod-body">
-        <span class="prod-eyebrow">Struktura XL · 180cm</span>
-        <h4>Rouleau bleu-pétrole, grande largeur</h4>
-        <div class="prod-price"><span class="now">CHF 512</span></div>
-        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
-      </div>
+    <div class="team-grid">
+      <div class="doc"><div class="ph" style="background:#4f8a73">AB</div><div class="info"><h3>Dr Albert Burki</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
+      <div class="doc"><div class="ph" style="background:#c8643b">CS</div><div class="info"><h3>Dre Chantal Simon</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
+      <div class="doc"><div class="ph" style="background:#2f5a4c">ND</div><div class="info"><h3>Dr Nicolas Della Ricca</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
+      <div class="doc"><div class="ph" style="background:#7fae96">JP</div><div class="info"><h3>Dr Jean-Daniel Pauchard</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
     </div>
-
-    <div class="prod-card">
-      <div class="prod-media swatch-brick">
-        <span class="prod-badge">Ignifugé</span>
-        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
-      </div>
-      <div class="prod-body">
-        <span class="prod-eyebrow">Budget Line Ignifugé · 150cm</span>
-        <h4>Rouleau terracotta, norme feu M1</h4>
-        <div class="prod-price"><span class="now">CHF 449</span></div>
-        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
-      </div>
-    </div>
-
-    <div class="prod-card">
-      <div class="prod-media swatch-sand">
-        <span class="prod-fav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9C.5 8 2 4 6 4c2.2 0 3.6 1.3 4 2 0.4-.7 1.8-2 4-2 4 0 5.5 4 3.5 8-2.5 4.5-9.5 9-9.5 9z"/></svg></span>
-      </div>
-      <div class="prod-body">
-        <span class="prod-eyebrow">Finessa · 140cm</span>
-        <h4>Rouleau sable, finition premium</h4>
-        <div class="prod-price"><span class="now">CHF 610</span></div>
-        <button class="prod-add"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg> Ajouter au panier</button>
-      </div>
-    </div>
-
+    <p class="team-note">Accompagnés par notre équipe d'assistantes médicales, à votre écoute au secrétariat et au laboratoire.</p>
   </div>
 </section>
 
-<section class="signature">
-  <div class="signature-inner">
+<section class="rdv" id="rdv">
+  <div class="wrap">
+    <div class="rdv-main">
+      <div class="eyebrow" style="color:#bcd8ca">Rendez-vous</div>
+      <h2>Réservez votre consultation en quelques clics</h2>
+      <p>Prenez rendez-vous en ligne 24h/24, ou appelez notre secrétariat pendant les heures d'ouverture. Pour une urgence du jour, merci de téléphoner le matin dès 8h.</p>
+      <div class="ctas">
+        <a href="#" class="btn btn-primary">Réserver en ligne</a>
+        <a href="tel:0328534953" class="btn btn-ghost">Appeler le cabinet</a>
+      </div>
+      <div class="circle"></div>
+    </div>
+    <div class="hours">
+      <h3>Horaires d'ouverture</h3>
+      <table>
+        <tr class="today"><td>Lundi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
+        <tr><td>Mardi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
+        <tr><td>Mercredi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
+        <tr><td>Jeudi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
+        <tr><td>Vendredi</td><td>8h00 – 12h00 · 13h30 – 17h00</td></tr>
+        <tr class="closed"><td>Samedi – Dimanche</td><td>Fermé</td></tr>
+      </table>
+      <p class="note">En dehors de ces horaires, contactez le médecin de garde au 0848 134 134.</p>
+    </div>
+  </div>
+</section>
+
+<section id="urgences" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow">Urgences</div>
+      <h2>En cas d'urgence</h2>
+    </div>
+    <div class="urg-grid">
+      <div class="urg red"><h3>Urgence vitale</h3><span class="num">144</span><p>Ambulance – douleur thoracique, difficulté à respirer, perte de connaissance.</p></div>
+      <div class="urg"><h3>Médecin de garde</h3><span class="num">0848 134 134</span><p>Canton de Neuchâtel, soirs, week-ends et jours fériés.</p></div>
+      <div class="urg"><h3>Tox Info Suisse</h3><span class="num">145</span><p>Intoxications et empoisonnements, 24h/24.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="access" id="acces" style="background:var(--surface);border-top:1px solid var(--line)">
+  <div class="wrap">
     <div>
-      <span class="eyebrow" style="color:var(--teal-light); display:block; margin-bottom:14px;">Notre expertise</span>
-      <h2>Du son à la matière, sans perte au passage.</h2>
-      <p>Chaque référence est mesurée pour sa transparence acoustique avant d'entrer en stock. Ce que vous entendez derrière le tissu, c'est ce que vous entendez sans lui.</p>
-      <a href="#" class="btn btn-primary" style="background:var(--amber-tint); color:var(--ink);">Lire notre méthode de test</a>
+      <div class="eyebrow">Accès</div>
+      <h2 style="font-size:clamp(30px,3.6vw,44px)">Nous trouver</h2>
+      <ul>
+        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><b>Avenue Robert 24</b><span>2052 Fontainemelon</span></div></li>
+        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21l-2-4M16 21l2-4"/></svg></div><div><b>Transports publics</b><span>Bus TransN – arrêt Fontainemelon, à quelques minutes à pied</span></div></li>
+        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></div><div><b>Parking</b><span>Places réservées aux patients devant le cabinet</span></div></li>
+        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"/><path d="M12 6v7l4 6M8 21a5 5 0 1 1 7-7"/></svg></div><div><b>Accessibilité</b><span>Cabinet accessible aux personnes à mobilité réduite</span></div></li>
+      </ul>
     </div>
-    <div class="mini-stats">
-      <div><strong>12</strong><span>familles de tissu</span></div>
-      <div><strong>&lt;1dB</strong><span>perte acoustique moy.</span></div>
-      <div><strong>24–48h</strong><span>délai d'expédition</span></div>
+    <div class="map">
+      <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice">
+        <rect width="640" height="440" fill="#ece7db"/>
+        <path d="M0 120 Q200 90 320 140 T640 110" stroke="#d6cfbf" stroke-width="40" fill="none"/>
+        <path d="M-20 300 L660 240" stroke="#fff" stroke-width="22"/>
+        <path d="M200 -20 L260 460" stroke="#fff" stroke-width="16"/>
+        <path d="M430 -20 Q400 200 470 460" stroke="#fff" stroke-width="12" fill="none"/>
+        <path d="M0 400 Q300 360 640 380" stroke="#fff" stroke-width="10" fill="none"/>
+        <g fill="#d9e6dd"><rect x="40" y="170" width="120" height="80" rx="8"/><rect x="290" y="300" width="110" height="60" rx="8"/><rect x="500" y="140" width="110" height="70" rx="8"/></g>
+        <g fill="#ddd5c4"><rect x="290" y="160" width="100" height="56" rx="6"/><rect x="40" y="320" width="130" height="50" rx="6"/><rect x="490" y="290" width="120" height="60" rx="6"/></g>
+        <text x="330" y="262" font-family="Inter" font-size="13" fill="#8a8273" transform="rotate(-5 330 262)">Avenue Robert</text>
+        <g transform="translate(320 250)">
+          <circle r="34" fill="#c8643b" opacity=".15"/>
+          <path d="M0 -44 C-18 -44 -26 -30 -26 -20 C-26 -4 0 14 0 14 C0 14 26 -4 26 -20 C26 -30 18 -44 0 -44Z" fill="#c8643b"/>
+          <circle cy="-22" r="9" fill="#fff"/>
+        </g>
+        <g transform="translate(360 196)"><rect width="176" height="40" rx="10" fill="#fff"/><text x="14" y="25" font-family="Inter" font-size="14" font-weight="600" fill="#1f3a32">Cabinet médical</text></g>
+      </svg>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-grid">
-    <div>
-      <div class="logo" style="margin-bottom:14px;">
-        <svg class="logo-wave" viewBox="0 0 120 34" xmlns="http://www.w3.org/2000/svg">
-          <defs><linearGradient id="logoGradFooter" x1="0" y1="0" x2="120" y2="0"><stop offset="0" stop-color="#2F80ED"/><stop offset="0.55" stop-color="#7A3FC2"/><stop offset="1" stop-color="#4B1F73"/></linearGradient></defs>
-          <path d="M0,17 L6,6 L12,26 L18,10 L24,22 L30,3 L36,28 L42,13 L48,31 L54,7 L60,20 L66,12 L72,26 L78,5 L84,19 L90,29 L96,10 L102,22 L108,14 L114,20 L120,17" stroke="url(#logoGradFooter)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-        </svg>
-        <span class="logo-text">akustikstoff<span class="logo-suffix">-schweiz.ch</span></span>
+  <div class="wrap">
+    <div class="cols">
+      <div>
+        <div class="logo" style="margin-bottom:16px">
+          <div class="logo-mark" style="background:#4f8a73"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="#fff"/></svg></div>
+          <div class="logo-text"><b>Cabinet médical de groupe</b><span>Fontainemelon</span></div>
+        </div>
+        <p style="max-width:280px">Médecine de famille pour tout le Val-de-Ruz.</p>
       </div>
-      <p style="color:var(--ink-soft); font-size:14.5px; max-width:280px;">Tissu acoustique pour enceintes, panneaux et portes. Basé en Suisse, livré en Suisse &amp; Liechtenstein.</p>
+      <div><h4>Contact</h4><ul><li>032 853 49 53</li><li>Avenue Robert 24</li><li>2052 Fontainemelon</li></ul></div>
+      <div><h4>Liens</h4><ul><li><a href="#prestations">Prestations</a></li><li><a href="#equipe">Équipe</a></li><li><a href="#rdv">Rendez-vous</a></li><li><a href="#acces">Accès</a></li></ul></div>
+      <div><h4>Urgences</h4><ul><li>Urgence vitale : 144</li><li>Garde NE : 0848 134 134</li><li>Tox Info : 145</li></ul></div>
     </div>
-    <div>
-      <h5>Catégories</h5>
-      <ul><li><a href="#">Résistant à l'eau</a></li><li><a href="#">Léger</a></li><li><a href="#">Ignifugé</a></li><li><a href="#">Struktura XL</a></li></ul>
-    </div>
-    <div>
-      <h5>Support</h5>
-      <ul><li><a href="#">Contact</a></li><li><a href="#">Livraison</a></li><li><a href="#">Retours</a></li><li><a href="#">Mentions légales</a></li></ul>
-    </div>
-    <div>
-      <h5>Confiance</h5>
-      <ul><li><a href="#">Paiement sécurisé</a></li><li><a href="#">Garantie 30 jours</a></li><li><a href="#">Avis clients</a></li></ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 akustikstoff-schweiz.ch</span>
-    <span>Maquette proposée · non affiliée au site original</span>
+    <div class="bottom"><span>© 2026 Cabinet médical de groupe de Fontainemelon</span><span>Mentions légales · Protection des données</span></div>
   </div>
 </footer>
 
-<div class="cart-panel" id="cartPanel">
-  <h5>Votre panier <span style="font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--ink-soft);">2 articles</span></h5>
-  <div class="cart-line">
-    <div class="cs swatch-anthracite"></div>
-    <div class="ci"><p>Rouleau anthracite 46m</p><span>CHF 395.00</span></div>
-  </div>
-  <div class="cart-line" style="border-bottom:none;">
-    <div class="cs swatch-teal"></div>
-    <div class="ci"><p>Rouleau bleu-pétrole</p><span>CHF 512.00</span></div>
-  </div>
-  <a href="#" class="btn btn-primary">Voir le panier</a>
-</div>
-
-<button class="float-cart" id="floatCart" aria-label="Panier">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 002 1.6h9.7a2 2 0 002-1.6L23 6H6"/></svg>
-  <span class="count">2</span>
-</button>
-
-<script>
-  // Static mockup: disable every link and button so nothing navigates or opens.
-  // (Floating cart, header nav, category/product links, footer links, etc. are all inert.)
-  document.querySelectorAll('a, button').forEach(el => {
-    el.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); });
-    el.style.cursor = 'default';
-  });
-
-  // Generate the "waveform -> weave" signature graphic procedurally
-  (function(){
-    const svg = document.getElementById('waveweave');
-    const W = 480, H = 440;
-    const ns = "http://www.w3.org/2000/svg";
-    const bars = 34;
-    const barW = W / bars;
-    const colors = ['#1E2124','#5C4A73','#4B1F73','#6E2E63'];
-    for(let i=0;i<bars;i++){
-      const t = i/(bars-1);
-      // amplitude follows a decaying sine to suggest a "waveform" reading left to right
-      const amp = (Math.sin(t*Math.PI*3.2) * 0.5 + 0.5) * (1 - t*0.15);
-      const h = 40 + amp * 300;
-      const x = i*barW + barW*0.22;
-      const y = (H - h)/2;
-      const w = barW*0.56;
-      const rect = document.createElementNS(ns,'rect');
-      rect.setAttribute('x', x);
-      rect.setAttribute('y', y);
-      rect.setAttribute('width', w);
-      rect.setAttribute('height', h);
-      rect.setAttribute('rx', w/2);
-      // color shifts from ink -> teal -> amber -> brick across the strip, weighted by position
-      let fill = colors[0];
-      if(t > 0.32 && t <= 0.58) fill = colors[1];
-      else if(t > 0.58 && t <= 0.82) fill = colors[2];
-      else if(t > 0.82) fill = colors[3];
-      rect.setAttribute('fill', fill);
-      rect.setAttribute('opacity', 0.9);
-      svg.appendChild(rect);
-    }
-    // overlay a woven crosshatch on the right third, as if the waveform becomes fabric
-    const weaveGroup = document.createElementNS(ns,'g');
-    weaveGroup.setAttribute('opacity','0.5');
-    for(let i=0;i<16;i++){
-      const x = W*0.62 + i*14;
-      if(x > W) break;
-      const l1 = document.createElementNS(ns,'line');
-      l1.setAttribute('x1', x); l1.setAttribute('y1', 20);
-      l1.setAttribute('x2', x); l1.setAttribute('y2', H-20);
-      l1.setAttribute('stroke', '#1E2124'); l1.setAttribute('stroke-width','1');
-      weaveGroup.appendChild(l1);
-    }
-    for(let j=0;j<20;j++){
-      const y = 20 + j*20;
-      if(y > H-20) break;
-      const l2 = document.createElementNS(ns,'line');
-      l2.setAttribute('x1', W*0.62); l2.setAttribute('y1', y);
-      l2.setAttribute('x2', W); l2.setAttribute('y2', y);
-      l2.setAttribute('stroke', '#1E2124'); l2.setAttribute('stroke-width','1');
-      weaveGroup.appendChild(l2);
-    }
-    svg.appendChild(weaveGroup);
-  })();
-</script>
-
+<div class="mock-badge">Maquette – contenu à valider</div>
 </body>
 </html>
