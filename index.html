@@ -6,410 +6,573 @@
 <title>Cabinet médical de Fontainemelon</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Atkinson+Hyperlegible+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-/* Layout : une colonne éditoriale, bandes pleine largeur, cartes réservées aux infos actionnables */
+/* Layout : site orienté tâches. Le haut de page répond à « que voulez-vous faire ? » et « est-ce ouvert ? »,
+   puis grille 12 colonnes, sections séparées par la couleur de fond plutôt que par des cartes. */
 :root{
-  --deep:#1f3a32; --on-deep:#e9f1ec; --on-deep-strong:#fff;
-  --heading:#1f3a32; --primary:#2f5a4c; --primary-hover:#1f3a32; --on-primary:#fff;
-  --green-500:#4f8a73; --green-100:#e3eee8;
-  --cream:#faf7f1; --sand:#f1ebdf; --surface:#fff; --ink:#1d2622; --muted:#5d6a64;
-  --accent:#c8643b; --accent-soft:#f6e3d8; --line:#e2ddd2; --header-bg:rgba(250,247,241,.92);
-  --ok:#3cb371; --radius:18px;
+  --paper:#f5f7f4; --surface:#ffffff; --ink:#10201b; --muted:#52615b; --line:#dbe2dd;
+  --pine:#0d5c46; --pine-hover:#0a4a38; --on-pine:#ffffff; --mint:#e2f0e8;
+  --sky:#e4eef2; --sky-ink:#15455a; --signal:#c42f27; --signal-soft:#fbe8e6; --sun:#f0bd3f;
+  --deep:#0e2a22; --on-deep:#d8e7df;
+  --f-display:"Schibsted Grotesk","Helvetica Neue",Arial,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",Roboto,Arial,sans-serif;
+  --f-mono:"Atkinson Hyperlegible Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  --r:14px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --deep:#16241f; --heading:#d5e7dd; --primary:#5f9c84; --primary-hover:#74b199; --on-primary:#0f1714;
-  --green-500:#7fbea3; --green-100:#22352d; --cream:#111916; --sand:#17211d; --surface:#1b2622;
-  --ink:#e4ece7; --muted:#9fb0a8; --accent:#d9774f; --accent-soft:#3a2820; --line:#2c3a34; --header-bg:rgba(17,25,22,.9);
-  color-scheme:dark}}
+  --paper:#0c1512; --surface:#13201b; --ink:#e4ede8; --muted:#9bb0a6; --line:#25352e;
+  --pine:#52b590; --pine-hover:#6cc8a4; --on-pine:#05231a; --mint:#16302a;
+  --sky:#122630; --sky-ink:#a6d0e3; --signal:#ff6e62; --signal-soft:#3b1613; --sun:#f0bd3f;
+  --deep:#08130f; --on-deep:#c9dbd2; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --deep:#16241f; --heading:#d5e7dd; --primary:#5f9c84; --primary-hover:#74b199; --on-primary:#0f1714;
-  --green-500:#7fbea3; --green-100:#22352d; --cream:#111916; --sand:#17211d; --surface:#1b2622;
-  --ink:#e4ece7; --muted:#9fb0a8; --accent:#d9774f; --accent-soft:#3a2820; --line:#2c3a34; --header-bg:rgba(17,25,22,.9);
-  color-scheme:dark}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
-h1,h2,h3{text-wrap:balance}
-body{font-family:Inter,system-ui,sans-serif;color:var(--ink);background:var(--cream);line-height:1.6;font-size:16px}
-h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;line-height:1.15;color:var(--heading)}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:1160px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 22px;border-radius:999px;font-weight:600;font-size:15px;transition:.2s}
-.btn-primary{background:var(--primary);color:var(--on-primary)}
-.btn-primary:hover{background:var(--primary-hover)}
-.btn:focus-visible,a:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
-.btn-ghost{border:1.5px solid var(--primary);color:var(--primary)}
-.btn-ghost:hover{background:var(--green-100)}
-.eyebrow{font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--green-500);font-weight:600;margin-bottom:12px}
+  --paper:#0c1512; --surface:#13201b; --ink:#e4ede8; --muted:#9bb0a6; --line:#25352e;
+  --pine:#52b590; --pine-hover:#6cc8a4; --on-pine:#05231a; --mint:#16302a;
+  --sky:#122630; --sky-ink:#a6d0e3; --signal:#ff6e62; --signal-soft:#3b1613; --sun:#f0bd3f;
+  --deep:#08130f; --on-deep:#c9dbd2; color-scheme:dark}
 
-/* Bandeau urgence */
-.alert{background:var(--deep);color:var(--on-deep);font-size:14px}
-.alert .wrap{display:flex;gap:24px;justify-content:space-between;align-items:center;padding-top:9px;padding-bottom:9px;flex-wrap:wrap}
-.alert strong{color:var(--on-deep-strong)}
-.alert .pill{background:var(--accent);color:#fff;border-radius:999px;padding:2px 10px;font-weight:600;margin-right:8px;font-size:12px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.55}
+h1,h2,h3,h4{font-family:var(--f-display);margin:0;letter-spacing:-.02em;text-wrap:balance}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.label{font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
 
-/* Header */
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:11;background:var(--cream)}
-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:var(--header-bg);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
-.logo{display:flex;align-items:center;gap:12px}
-.logo-mark{width:42px;height:42px;border-radius:12px;background:var(--primary);display:grid;place-items:center}
-.logo-text b{display:block;font-family:Fraunces,serif;font-size:18px;color:var(--heading);line-height:1.1}
-.logo-text span{font-size:12.5px;color:var(--muted)}
-nav ul{display:flex;gap:28px;list-style:none;font-size:15px;font-weight:500}
-nav a:hover{color:var(--green-500)}
-.menu-btn{display:none;background:none;border:0;font-size:26px;color:var(--heading)}
+/* Barre urgence */
+.util{background:var(--deep);color:var(--on-deep);font-size:15px}
+.util .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-block:8px}
+.util b{color:#fff}
+.util .u-red{display:inline-flex;align-items:center;gap:8px}
+.util .u-red::before{content:"";width:8px;height:8px;border-radius:50%;background:#ff6e62}
+
+/* En-tête */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:31;background:var(--paper)}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:32px;height:74px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
+.brand svg{flex:none}
+.brand b{white-space:nowrap;font-family:var(--f-display);font-size:19px;font-weight:700;display:block;line-height:1.1;letter-spacing:-.01em}
+.brand span{font-size:14px;color:var(--muted)}
+.nav{display:flex;gap:22px;font-size:16px;white-space:nowrap}
+.nav a{text-decoration:none;font-weight:700}
+.nav a:hover{color:var(--pine)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--f-display);font-weight:700;font-size:16px;padding:13px 20px;border-radius:999px;text-decoration:none;border:2px solid transparent;transition:background .15s,transform .15s;cursor:pointer;white-space:nowrap}
+.btn-pine{background:var(--pine);color:var(--on-pine)}
+.btn-pine:hover{background:var(--pine-hover)}
+.btn-line{border-color:var(--ink);color:var(--ink);background:transparent}
+.btn-line:hover{background:var(--surface)}
 
 /* Hero */
-.hero{padding:72px 0 40px;position:relative;overflow:hidden}
-.hero .wrap:not(.quick){display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
-.hero h1{font-size:clamp(38px,5vw,60px);margin-bottom:22px}
-.hero h1 em{font-style:italic;color:var(--green-500)}
-.hero p.lead{font-size:18px;color:var(--muted);max-width:520px;margin-bottom:32px}
-.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
-.hero-visual{max-width:100%;position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/4.2;background:var(--green-100)}
-.hero-visual svg{width:100%;height:100%;display:block}
-.hero-card{position:absolute;left:-28px;bottom:36px;background:var(--surface);border-radius:16px;padding:16px 20px;box-shadow:0 18px 40px -12px rgba(31,58,50,.25);display:flex;gap:14px;align-items:center}
-.hero-card .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 0 5px color-mix(in srgb,var(--ok) 15%,transparent)}
-.hero-card small{display:block;color:var(--muted);font-size:13px}
-.hero-card b{font-size:15px}
-.hero-wrap-visual{position:relative}
+.hero{padding-block:56px 72px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:48px;align-items:start}
+.hero .label{margin-bottom:18px;display:block}
+.hero h1{font-size:clamp(40px,5.6vw,76px);line-height:.98;font-weight:800;letter-spacing:-.035em;max-width:12ch}
+.hero h1 span{color:var(--pine)}
+.hero .lead{font-size:20px;color:var(--muted);max-width:52ch;margin-top:22px}
 
-/* Quick infos */
-.quick{margin-top:24px}
-.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);background:var(--surface);border-radius:var(--radius);border:1px solid var(--line);overflow:hidden}
-.quick-item{padding:26px 24px;border-right:1px solid var(--line)}
-.quick-item:last-child{border-right:0}
-.quick-item .ico,.access .ico{color:var(--primary)}
-.quick-item .ico{width:40px;height:40px;border-radius:10px;background:var(--green-100);display:grid;place-items:center;margin-bottom:14px}
-.quick-item h3{font-family:Inter,sans-serif;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600;margin-bottom:4px}
-.quick-item p{font-weight:600;font-size:17px}
-.quick-item p small{display:block;font-weight:400;color:var(--muted);font-size:14px}
+.tasks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:36px}
+.task{display:flex;align-items:center;gap:16px;padding:18px 18px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line);text-decoration:none;transition:border-color .15s,transform .15s}
+.task:hover{border-color:var(--pine);transform:translateY(-2px)}
+.task .ti{flex:none;width:46px;height:46px;border-radius:12px;background:var(--mint);color:var(--pine);display:grid;place-items:center}
+.task b{display:block;font-family:var(--f-display);font-size:17px;line-height:1.2}
+.task small{display:block;color:var(--muted);font-size:14.5px;margin-top:2px}
+.task .arr{margin-left:auto;color:var(--muted);font-size:20px}
+.task.primary{background:var(--pine);border-color:var(--pine);color:var(--on-pine)}
+.task.primary .ti{background:color-mix(in srgb,var(--on-pine) 16%,transparent);color:var(--on-pine)}
+.task.primary small,.task.primary .arr{color:color-mix(in srgb,var(--on-pine) 80%,transparent)}
 
-section{padding:96px 0}
-.section-head{max-width:640px;margin-bottom:48px}
-.section-head h2{font-size:clamp(30px,3.6vw,44px);margin-bottom:14px}
-.section-head p{color:var(--muted);font-size:17px}
+/* Panneau statut */
+.status{background:var(--sky);color:var(--ink);border-radius:22px;padding:28px;position:relative}
+.status .state{display:flex;align-items:center;gap:12px;font-family:var(--f-display);font-weight:800;font-size:30px;letter-spacing:-.02em}
+.status .dot{width:14px;height:14px;border-radius:50%;background:var(--muted);flex:none}
+.status.is-open .dot{background:#2fae6b;box-shadow:0 0 0 6px color-mix(in srgb,#2fae6b 22%,transparent)}
+.status.is-closed .dot{background:var(--signal)}
+.status .next{color:var(--sky-ink);margin-top:4px;font-size:17px}
+.day{margin-top:26px}
+.day-head{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:13px;color:var(--sky-ink)}
+.bar{position:relative;height:38px;margin-top:8px;border-radius:9px;background:color-mix(in srgb,var(--sky-ink) 12%,transparent);overflow:hidden}
+.bar .blk{position:absolute;top:0;bottom:0;background:var(--pine);border-radius:6px}
+.bar .now{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--sun);box-shadow:0 0 0 2px var(--sky)}
+.ticks{display:flex;justify-content:space-between;font-family:var(--f-mono);font-size:12px;color:var(--sky-ink);margin-top:6px}
+.status hr{border:0;border-top:1px solid color-mix(in srgb,var(--sky-ink) 22%,transparent);margin:24px 0}
+.contact-rows{display:grid;gap:14px}
+.crow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+.crow .label{color:var(--sky-ink)}
+.crow .v{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:-.01em;text-decoration:none}
+.crow .v.small{font-size:17px}
+.status .btn{width:100%;margin-top:22px}
+
+/* Bande faits */
+.facts{border-block:1px solid var(--line);background:var(--surface)}
+.facts ul{list-style:none;margin-block:0;padding-block:0;display:grid;grid-template-columns:repeat(4,1fr)}
+.facts li{padding:22px 24px;border-left:1px solid var(--line);display:flex;gap:14px;align-items:center;font-size:16px}
+.facts li:first-child{border-left:0;padding-left:0}
+.facts li svg{flex:none;color:var(--pine)}
+.facts b{display:block;font-family:var(--f-display)}
+.facts small{color:var(--muted);font-size:14.5px}
+
+section.sec{padding-block:96px}
+.sec-head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:end;margin-bottom:48px}
+.sec-head h2{font-size:clamp(32px,3.8vw,52px);line-height:1.02;font-weight:800;letter-spacing:-.03em}
+.sec-head p{color:var(--muted);max-width:56ch}
+.sec-head .label{display:block;margin-bottom:14px}
+
+/* Nouveaux patients : étapes */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;counter-reset:s;border-top:2px solid var(--ink)}
+.step{padding:28px 28px 0 0}
+.step + .step{padding-left:28px;border-left:1px solid var(--line)}
+.step .n{font-family:var(--f-mono);font-size:14px;color:var(--pine);font-weight:600}
+.step h3{font-size:24px;margin:10px 0 10px}
+.step p{color:var(--muted)}
+.step ul{margin:12px 0 0;padding-left:20px;color:var(--muted)}
+.step li{margin-bottom:4px}
+.newpat-note{margin-top:40px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;padding:22px 26px;border-radius:var(--r);background:var(--mint)}
+.newpat-note p{flex:1 1 360px}
 
 /* Prestations */
-.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.service{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:30px;transition:.25s}
-.service:hover{transform:translateY(-4px);box-shadow:0 20px 40px -20px rgba(31,58,50,.25);border-color:transparent}
-.service .ico{width:48px;height:48px;border-radius:14px;background:var(--accent-soft);display:grid;place-items:center;margin-bottom:20px}
-.service h3{font-size:21px;margin-bottom:8px}
-.service p{color:var(--muted);font-size:15px}
+.alt{background:var(--surface);border-block:1px solid var(--line)}
+.svc{display:grid;grid-template-columns:repeat(2,1fr);gap:0 64px}
+.svc-group{padding-block:26px;border-top:1px solid var(--line)}
+.svc-group h3{font-size:22px;display:flex;align-items:center;gap:12px}
+.svc-group h3 i{font-style:normal;width:34px;height:34px;border-radius:10px;background:var(--mint);color:var(--pine);display:grid;place-items:center}
+.svc-group ul{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.svc-group li{font-size:15.5px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:var(--paper)}
 
-/* Equipe */
-.team{background:var(--sand)}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.doc{background:var(--surface);border-radius:var(--radius);overflow:hidden}
-.doc .ph{aspect-ratio:1/1;display:grid;place-items:center;font-family:Fraunces,serif;font-size:44px;color:#fff}
-.doc .info{padding:18px 20px 22px}
-.doc h3{font-size:18px;margin-bottom:2px}
-.doc p{font-size:14px;color:var(--muted)}
-.doc .tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;color:var(--green-500);background:var(--green-100);padding:3px 10px;border-radius:999px}
-.team-note{margin-top:28px;font-size:14px;color:var(--muted)}
+/* Équipe */
+.team{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.doc{display:flex;flex-direction:column}
+.portrait{aspect-ratio:4/5;max-width:100%;border-radius:var(--r);background:var(--sky);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:18px}
+.portrait .ini{position:absolute;top:10px;left:16px;font-family:var(--f-display);font-weight:800;font-size:92px;line-height:1;letter-spacing:-.05em;color:color-mix(in srgb,var(--sky-ink) 30%,transparent)}
+.portrait .ph{font-family:var(--f-mono);font-size:12px;color:var(--sky-ink);background:color-mix(in srgb,var(--surface) 70%,transparent);padding:4px 8px;border-radius:6px}
+.doc h3{font-size:21px;margin-top:16px}
+.doc .role{color:var(--muted);font-size:15.5px}
+.doc .meta{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+.doc .meta div{display:flex;justify-content:space-between;gap:8px;border-top:1px solid var(--line);padding-top:6px}
+.doc .meta span:first-child{color:var(--muted)}
+.days{display:flex;gap:3px;font-family:var(--f-mono);font-size:12px}
+.days i{font-style:normal;width:20px;height:20px;display:grid;place-items:center;border-radius:5px;background:var(--line);color:var(--muted)}
+.days i.on{background:var(--pine);color:var(--on-pine)}
+.team-foot{margin-top:28px;color:var(--muted);font-size:16px}
 
-/* RDV */
-.rdv .wrap{display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.rdv-main{background:#2f5a4c;color:#e9f1ec;border-radius:28px;padding:48px;position:relative;overflow:hidden}
-.rdv-main h2{color:#fff;font-size:38px;margin-bottom:16px}
-.rdv-main p{margin-bottom:28px;max-width:420px}
-.rdv-main .btn-primary{background:#fff;color:#1f3a32}
-.rdv-main .btn-ghost{border-color:#ffffff88;color:#fff}
-.rdv-main .btn-ghost:hover{background:#ffffff1a}
-.rdv-main .ctas{display:flex;gap:12px;flex-wrap:wrap}
-.rdv-main .circle{position:absolute;right:-80px;bottom:-80px;width:260px;height:260px;border-radius:50%;border:40px solid #ffffff12}
-.hours{background:var(--surface);border:1px solid var(--line);border-radius:28px;padding:40px}
-.hours h3{font-size:24px;margin-bottom:20px}
-.hours table{width:100%;border-collapse:collapse;font-size:15px}
-.hours td{padding:12px 0;border-bottom:1px dashed var(--line)}
-.hours td:last-child{text-align:right;font-weight:600}
-.hours tr.closed td:last-child{color:var(--muted);font-weight:400}
-.hours .today td{color:var(--green-500)}
-.hours .note{margin-top:18px;font-size:13.5px;color:var(--muted)}
+/* Horaires & accès */
+.info-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:40px;align-items:start}
+.hours{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.hours th{text-align:left;font-weight:700;padding:13px 0;border-bottom:1px solid var(--line);font-family:var(--f-display)}
+.hours td{padding:13px 0;border-bottom:1px solid var(--line);text-align:right;font-family:var(--f-mono);font-size:15.5px}
+.hours tr.today th,.hours tr.today td{color:var(--pine)}
+.hours tr.today th::after{content:"aujourd'hui";font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;margin-left:10px;padding:2px 8px;border-radius:999px;background:var(--mint);vertical-align:2px}
+.hours .off td{color:var(--muted)}
+.phone-hours{margin-top:22px;padding:18px 20px;border-radius:var(--r);background:var(--sky);color:var(--ink);font-size:16px}
+.phone-hours b{font-family:var(--f-display)}
+.map{border-radius:22px;overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.map svg{display:block;width:100%;height:auto;max-width:100%}
+.access{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;padding:6px 24px 20px}
+.access div{padding-top:16px}
+.access b{font-family:var(--f-display);display:block}
+.access span{color:var(--muted);font-size:15.5px}
 
 /* Urgences */
-.urg-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.urg{border-radius:var(--radius);padding:28px;border:1px solid var(--line);background:var(--surface)}
-.urg.red{background:var(--accent);color:#fff;border-color:var(--accent)}
-.urg.red h3,.urg.red .num{color:#fff}
-.urg h3{font-size:19px;margin-bottom:6px}
-.urg .num{font-family:Fraunces,serif;font-size:34px;color:var(--heading);margin:8px 0 4px;display:block}
-.urg p{font-size:14.5px;opacity:.9}
+.urg-sec{background:var(--deep);color:var(--on-deep)}
+.urg-sec h2,.urg-sec h3{color:#fff}
+.urg-sec .sec-head p,.urg-sec .label{color:color-mix(in srgb,var(--on-deep) 75%,transparent)}
+.triage{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tri{border-radius:var(--r);padding:24px;background:color-mix(in srgb,#fff 6%,transparent);border:1px solid color-mix(in srgb,#fff 12%,transparent);display:flex;flex-direction:column}
+.tri.red{background:#c42f27;border-color:#c42f27}
+.tri .when{font-size:15.5px;color:color-mix(in srgb,var(--on-deep) 80%,transparent);min-height:3.2em}
+.tri.red .when{color:#ffe1dd}
+.tri .num{white-space:nowrap;font-family:var(--f-display);font-weight:800;font-size:clamp(28px,2.6vw,36px);color:#fff;letter-spacing:-.02em;margin-top:auto;padding-top:18px;line-height:1}
+.tri h3{font-size:19px;margin-bottom:6px}
 
-/* Accès */
-.access .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
-.map{max-width:100%;border-radius:28px;overflow:hidden;aspect-ratio:16/11;background:#e9e4d8;border:1px solid var(--line)}
-.map svg{width:100%;height:100%;display:block}
-.access ul{list-style:none;margin-top:24px}
-.access li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
-.access li b{display:block}
-.access li span{color:var(--muted);font-size:15px}
-.access .ico{flex:none;width:36px;height:36px;border-radius:10px;background:var(--green-100);display:grid;place-items:center}
+/* FAQ */
+.faq{max-width:860px}
+.faq details{border-top:1px solid var(--line)}
+.faq details:last-child{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;font-family:var(--f-display);font-weight:700;font-size:20px;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:4px;top:16px;font-size:28px;font-weight:500;color:var(--pine);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{padding-bottom:22px;color:var(--muted);max-width:68ch}
 
-footer{background:var(--deep);color:#c7d6ce;padding:64px 0 28px;font-size:15px}
-footer .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:32px;margin-bottom:48px}
-footer h4{color:#fff;font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:14px}
-footer li{list-style:none;margin-bottom:8px}
-footer .logo-text b{color:#fff}
-footer .logo-text span{color:#a9bdb3}
-footer .bottom{border-top:1px solid #ffffff1f;padding-top:22px;display:flex;justify-content:space-between;font-size:13px;flex-wrap:wrap;gap:12px}
+footer{border-top:1px solid var(--line);padding-block:56px 40px;font-size:16px}
+.f-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px}
+footer h4{font-family:var(--f-mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:12px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+footer a{text-decoration:none}
+footer a:hover{color:var(--pine)}
+.f-bottom{margin-top:48px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;color:var(--muted);font-size:14px}
 
-.mock-badge{position:fixed;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));background:#1d2622;color:#fff;font-size:12px;padding:7px 12px;border-radius:999px;opacity:.85;z-index:20}
+/* Barre d'action mobile */
+.mbar{display:none}
+.mock{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:40;font-family:var(--f-mono);font-size:12px;background:var(--sun);color:#10201b;padding:6px 10px;border-radius:999px}
 
-@media (max-width:960px){
-  nav ul{display:none}
-  .menu-btn{display:block}
-  header .btn{display:none}
-  .hero .wrap:not(.quick),.rdv .wrap,.access .wrap{grid-template-columns:1fr}
-  .hero-card{left:16px}
-  .quick-grid{grid-template-columns:1fr 1fr}
-  .quick-item:nth-child(2){border-right:0}
-  .quick-item:nth-child(-n+2){border-bottom:1px solid var(--line)}
-  .services-grid,.urg-grid{grid-template-columns:1fr 1fr}
-  .team-grid{grid-template-columns:1fr 1fr}
-  footer .cols{grid-template-columns:1fr 1fr}
+@media (max-width:1180px){.nav{display:none}}
+@media (max-width:1020px){
+  .hero-grid,.info-grid,.sec-head{grid-template-columns:1fr}
+  .sec-head{gap:16px}
+  .facts ul{grid-template-columns:1fr 1fr}
+  .facts li:nth-child(3){border-left:0;padding-left:0}
+  .facts li:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .team{grid-template-columns:1fr 1fr}
+  .triage{grid-template-columns:1fr 1fr}
+  .f-grid{grid-template-columns:1fr 1fr}
 }
-@media (max-width:600px){
+@media (max-width:680px){
+  body{font-size:17px}
   .wrap{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-  section{padding:64px 0}
-  .hero{padding-top:40px}
-  .quick-grid,.services-grid,.urg-grid{grid-template-columns:1fr}
-  .quick-item{border-right:0!important;border-bottom:1px solid var(--line)}
-  .rdv-main,.hours{padding:30px}
-  .alert .hide-sm{display:none}
-  .logo-text span{display:none}
-  footer .cols{grid-template-columns:1fr}
+  .top .btn{display:none}
+  .brand span{display:none}
+  .util .hide-s{display:none}
+  .hero{padding-block:36px 56px}
+  .tasks{grid-template-columns:1fr}
+  .facts ul{grid-template-columns:1fr}
+  .facts li{border-left:0!important;padding-left:0!important;border-bottom:1px solid var(--line)}
+  .facts li:last-child{border-bottom:0}
+  section.sec{padding-block:64px}
+  .steps{grid-template-columns:1fr}
+  .step,.step + .step{padding:24px 0;border-left:0;border-bottom:1px solid var(--line)}
+  .svc{grid-template-columns:1fr}
+  .team{gap:14px}
+  .portrait .ini{font-size:64px}
+  .triage,.access{grid-template-columns:1fr}
+  .f-grid{grid-template-columns:1fr}
+  footer{padding-bottom:120px}
+  .mbar{display:flex;gap:10px;position:fixed;left:0;right:0;bottom:0;z-index:35;background:var(--surface);border-top:1px solid var(--line);padding:10px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+  .mbar .btn{flex:1}
+  .mock{bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 }
 </style>
 </head>
 <body>
-<div class="alert">
+<div class="util">
   <div class="wrap">
-    <div><span class="pill">Urgence vitale</span>Composez le <strong>144</strong></div>
-    <div class="hide-sm">Médecin de garde (canton de Neuchâtel) : <strong>0848 134 134</strong></div>
+    <span class="u-red">Urgence vitale : <b>144</b></span>
+    <span class="hide-s">Soirs, week-ends et jours fériés : médecin de garde <b>0848 134 134</b></span>
   </div>
 </div>
 
-<header>
+<header class="top">
   <div class="wrap">
-    <a href="#" class="logo">
-      <div class="logo-mark">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="#fff"/></svg>
-      </div>
-      <div class="logo-text"><b>Cabinet médical de groupe</b><span>Fontainemelon · Val-de-Ruz</span></div>
+    <a class="brand" href="#">
+      <svg width="44" height="44" viewBox="0 0 44 44" aria-hidden="true">
+        <rect width="44" height="44" rx="12" fill="var(--pine)"/>
+        <path d="M6 31c5-6 10-8 16-5s11 2 16-4" fill="none" stroke="var(--on-pine)" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M6 37c6-4 12-5 18-2s10 2 14-1" fill="none" stroke="var(--on-pine)" stroke-width="2.4" stroke-linecap="round" opacity=".55"/>
+        <path d="M19.5 8h5v5h5v5h-5v5h-5v-5h-5v-5h5z" fill="var(--on-pine)"/>
+      </svg>
+      <div><b>Cabinet médical de groupe</b><span>Fontainemelon · Val-de-Ruz</span></div>
     </a>
-    <nav><ul>
-      <li><a href="#prestations">Prestations</a></li>
-      <li><a href="#equipe">Équipe</a></li>
-      <li><a href="#rdv">Horaires</a></li>
-      <li><a href="#urgences">Urgences</a></li>
-      <li><a href="#acces">Accès</a></li>
-    </ul></nav>
-    <a href="#rdv" class="btn btn-primary">Prendre rendez-vous</a>
-    <button class="menu-btn" aria-label="Menu">☰</button>
+    <nav class="nav" aria-label="Navigation principale">
+      <a href="#nouveaux">Nouveaux patients</a>
+      <a href="#prestations">Prestations</a>
+      <a href="#equipe">Médecins</a>
+      <a href="#infos">Horaires & accès</a>
+      <a href="#urgences">Urgences</a>
+    </nav>
+    <a class="btn btn-pine" href="#rdv">Prendre rendez-vous</a>
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap">
+<main>
+<section class="hero" id="rdv">
+  <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Médecine de famille au cœur du Val-de-Ruz</div>
-      <h1>Votre santé, suivie <em>de près</em> par une équipe qui vous connaît.</h1>
-      <p class="lead">Nos médecins généralistes vous accompagnent à chaque étape de la vie : consultations, suivi des maladies chroniques, prévention et petites urgences.</p>
-      <div class="ctas">
-        <a href="#rdv" class="btn btn-primary">Prendre rendez-vous en ligne →</a>
-        <a href="tel:0328534953" class="btn btn-ghost">032 853 49 53</a>
+      <span class="label">Médecine de famille · Avenue Robert 24 · 2052 Fontainemelon</span>
+      <h1>Votre médecin de famille, <span>au cœur du Val-de-Ruz.</span></h1>
+      <p class="lead">Quatre médecins généralistes, une équipe d'assistantes médicales et un laboratoire sur place. Que souhaitez-vous faire ?</p>
+
+      <div class="tasks">
+        <a class="task primary" href="#">
+          <span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 15l2 2 4-4"/></svg></span>
+          <span><b>Prendre rendez-vous</b><small>En ligne, 24h/24</small></span><span class="arr">→</span>
+        </a>
+        <a class="task" href="#">
+          <span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="7" y="2" width="10" height="6" rx="1.5"/><path d="M6 8h12v12a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2z"/><path d="M12 12v6M9 15h6"/></svg></span>
+          <span><b>Renouveler une ordonnance</b><small>Prête sous 48 h ouvrables</small></span><span class="arr">→</span>
+        </a>
+        <a class="task" href="#nouveaux">
+          <span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="4"/><path d="M2 21v-1a6 6 0 0 1 6-6h2a6 6 0 0 1 6 6v1M19 8v6M16 11h6"/></svg></span>
+          <span><b>Devenir patient</b><small>Comment s'inscrire au cabinet</small></span><span class="arr">→</span>
+        </a>
+        <a class="task" href="#">
+          <span class="ti"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></span>
+          <span><b>Certificat ou rapport</b><small>Demande au secrétariat</small></span><span class="arr">→</span>
+        </a>
       </div>
     </div>
-    <div class="hero-wrap-visual">
-      <div class="hero-visual">
-        <!-- Illustration : collines du Val-de-Ruz -->
-        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice">
-          <defs>
-            <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#f6e3d8"/><stop offset="1" stop-color="#e3eee8"/>
-            </linearGradient>
-          </defs>
-          <rect width="400" height="420" fill="url(#sky)"/>
-          <circle cx="292" cy="112" r="46" fill="#f3c9ad"/>
-          <path d="M0 220 Q80 150 170 190 T400 160 V420 H0Z" fill="#a9c9b8"/>
-          <path d="M0 270 Q110 210 220 255 T400 230 V420 H0Z" fill="#7fae96"/>
-          <path d="M0 320 Q120 280 240 315 T400 300 V420 H0Z" fill="#4f8a73"/>
-          <path d="M0 370 Q140 340 260 365 T400 355 V420 H0Z" fill="#2f5a4c"/>
-          <!-- bâtiment -->
-          <g transform="translate(120 250)">
-            <rect x="0" y="30" width="140" height="80" rx="4" fill="#faf7f1"/>
-            <path d="M-8 34 L70 0 L148 34Z" fill="#c8643b"/>
-            <rect x="58" y="62" width="24" height="48" rx="3" fill="#2f5a4c"/>
-            <rect x="16" y="50" width="26" height="22" rx="3" fill="#cfe1d7"/>
-            <rect x="98" y="50" width="26" height="22" rx="3" fill="#cfe1d7"/>
-            <rect x="63" y="38" width="14" height="14" fill="#c8643b" opacity="0"/>
-            <path d="M66 14h8v6h6v8h-6v6h-8v-6h-6v-8h6z" fill="#fff"/>
+
+    <aside class="status" id="status" aria-live="polite">
+      <div class="label" style="color:var(--sky-ink)" id="st-date">Horaires du jour</div>
+      <div class="state" style="margin-top:10px"><span class="dot"></span><span id="st-state">Lun – ven, 8h – 18h</span></div>
+      <p class="next" id="st-next">Pause de midi de 12h00 à 13h30</p>
+      <div class="day">
+        <div class="day-head"><span>Aujourd'hui</span><span id="st-range">8:00–12:00 · 13:30–18:00</span></div>
+        <div class="bar" id="bar">
+          <span class="blk" style="left:8.33%;width:33.33%"></span>
+          <span class="blk" style="left:54.17%;width:37.5%"></span>
+        </div>
+        <div class="ticks"><span>7h</span><span>10h</span><span>13h</span><span>16h</span><span>19h</span></div>
+      </div>
+      <hr>
+      <div class="contact-rows">
+        <div class="crow"><span class="label">Téléphone</span><a class="v" href="tel:+41328534953">032 853 49 53</a></div>
+        <div class="crow"><span class="label">Adresse</span><span class="v small">Avenue Robert 24, Fontainemelon</span></div>
+      </div>
+      <a class="btn btn-pine" href="#">Réserver un créneau en ligne</a>
+    </aside>
+  </div>
+</section>
+
+<div class="facts">
+  <ul class="wrap">
+    <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M4 21v-1a7 7 0 0 1 16 0v1"/></svg><span><b>4 médecins FMH</b><small>Médecine interne générale</small></span></li>
+    <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/></svg><span><b>Laboratoire sur place</b><small>Résultats en général le jour même</small></span></li>
+    <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21l-2-4M16 21l2-4"/></svg><span><b>Bus TransN</b><small>Arrêt à quelques minutes à pied</small></span></li>
+    <li><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"/><path d="M12 6v7l4 6M8 21a5 5 0 1 1 7-7"/></svg><span><b>Accès de plain-pied</b><small>Fauteuils roulants et poussettes</small></span></li>
+  </ul>
+</div>
+
+<section class="sec" id="nouveaux">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="label">Nouveaux patients</span><h2>Devenir patient au cabinet</h2></div>
+      <p>Nous accueillons de nouveaux patients selon les disponibilités de nos médecins. Voici comment se passe votre inscription, de la première prise de contact à la première consultation.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="n">Étape 1</span>
+        <h3>Prenez contact</h3>
+        <p>Réservez une première consultation en ligne ou appelez le secrétariat. Indiquez-nous si vous avez un modèle d'assurance « médecin de famille ».</p>
+      </div>
+      <div class="step">
+        <span class="n">Étape 2</span>
+        <h3>Préparez votre visite</h3>
+        <p>Le jour du rendez-vous, apportez :</p>
+        <ul>
+          <li>votre carte d'assurance maladie</li>
+          <li>la liste de vos médicaments</li>
+          <li>vos derniers rapports et résultats</li>
+          <li>votre carnet de vaccination</li>
+        </ul>
+      </div>
+      <div class="step">
+        <span class="n">Étape 3</span>
+        <h3>Nous récupérons votre dossier</h3>
+        <p>Avec votre accord écrit, nous demandons votre dossier médical à votre ancien médecin. Vous n'avez rien d'autre à faire.</p>
+      </div>
+    </div>
+    <div class="newpat-note">
+      <p><b>Vous arrivez dans la région ?</b> Si vos besoins sont urgents avant votre première consultation, appelez-nous : nous trouverons une solution.</p>
+      <a class="btn btn-pine" href="#">Réserver une première consultation</a>
+    </div>
+  </div>
+</section>
+
+<section class="sec alt" id="prestations">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="label">Prestations</span><h2>Ce que nous faisons au cabinet</h2></div>
+      <p>La plupart des examens courants se font sur place, sans vous envoyer ailleurs. Si un avis spécialisé est nécessaire, nous vous orientons et coordonnons le suivi.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-group">
+        <h3><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 12 0V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 12 0v-4"/><circle cx="20" cy="10" r="2"/></svg></i>Consultations</h3>
+        <ul><li>Médecine générale adultes</li><li>Enfants et adolescents</li><li>Problèmes aigus du jour</li><li>Certificats médicaux</li><li>Visites à domicile</li></ul>
+      </div>
+      <div class="svc-group">
+        <h3><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></i>Suivi au long cours</h3>
+        <ul><li>Diabète</li><li>Hypertension</li><li>Maladies cardiovasculaires</li><li>Asthme et BPCO</li><li>Personnes âgées</li></ul>
+      </div>
+      <div class="svc-group">
+        <h3><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></i>Examens sur place</h3>
+        <ul><li>Prise de sang et laboratoire</li><li>ECG</li><li>Spirométrie</li><li>Tension sur 24 h</li><li>Petite chirurgie</li></ul>
+      </div>
+      <div class="svc-group">
+        <h3><i><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></i>Prévention</h3>
+        <ul><li>Bilans de santé</li><li>Vaccinations</li><li>Conseils aux voyageurs</li><li>Dépistages</li><li>Arrêt du tabac</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="equipe">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="label">Médecins</span><h2>L'équipe médicale</h2></div>
+      <p>Nos médecins se connaissent et partagent les dossiers. En cas d'absence de votre médecin, un collègue qui a accès à votre historique vous reçoit.</p>
+    </div>
+    <div class="team">
+      <article class="doc">
+        <div class="portrait"><span class="ini">AB</span><span class="ph">Photo à venir</span></div>
+        <h3>Dr Albert Burki</h3><p class="role">Spécialiste FMH en médecine interne générale</p>
+        <div class="meta"><div><span>Langues</span><span>FR · DE</span></div><div><span>Présent</span><span class="days"><i class="on">L</i><i class="on">M</i><i>M</i><i class="on">J</i><i class="on">V</i></span></div></div>
+      </article>
+      <article class="doc">
+        <div class="portrait"><span class="ini">CS</span><span class="ph">Photo à venir</span></div>
+        <h3>Dre Chantal Simon</h3><p class="role">Spécialiste FMH en médecine interne générale</p>
+        <div class="meta"><div><span>Langues</span><span>FR · EN</span></div><div><span>Présente</span><span class="days"><i class="on">L</i><i class="on">M</i><i class="on">M</i><i>J</i><i class="on">V</i></span></div></div>
+      </article>
+      <article class="doc">
+        <div class="portrait"><span class="ini">ND</span><span class="ph">Photo à venir</span></div>
+        <h3>Dr Nicolas Della Ricca</h3><p class="role">Spécialiste FMH en médecine interne générale</p>
+        <div class="meta"><div><span>Langues</span><span>FR · IT</span></div><div><span>Présent</span><span class="days"><i class="on">L</i><i>M</i><i class="on">M</i><i class="on">J</i><i class="on">V</i></span></div></div>
+      </article>
+      <article class="doc">
+        <div class="portrait"><span class="ini">JP</span><span class="ph">Photo à venir</span></div>
+        <h3>Dr Jean-Daniel Pauchard</h3><p class="role">Spécialiste FMH en médecine interne générale</p>
+        <div class="meta"><div><span>Langues</span><span>FR</span></div><div><span>Présent</span><span class="days"><i>L</i><i class="on">M</i><i class="on">M</i><i class="on">J</i><i>V</i></span></div></div>
+      </article>
+    </div>
+    <p class="team-foot">Avec nos assistantes médicales, qui vous accueillent au secrétariat, réalisent les prises de sang et vous rappellent pour vos résultats.</p>
+  </div>
+</section>
+
+<section class="sec alt" id="infos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="label">Horaires & accès</span><h2>Quand et comment venir</h2></div>
+      <p>Le cabinet se trouve au centre de Fontainemelon, à quelques minutes de Cernier et de Chézard-Saint-Martin.</p>
+    </div>
+    <div class="info-grid">
+      <div>
+        <table class="hours" id="hours">
+          <tbody>
+            <tr data-d="1"><th>Lundi</th><td>8:00–12:00 · 13:30–18:00</td></tr>
+            <tr data-d="2"><th>Mardi</th><td>8:00–12:00 · 13:30–18:00</td></tr>
+            <tr data-d="3"><th>Mercredi</th><td>8:00–12:00 · 13:30–18:00</td></tr>
+            <tr data-d="4"><th>Jeudi</th><td>8:00–12:00 · 13:30–18:00</td></tr>
+            <tr data-d="5"><th>Vendredi</th><td>8:00–12:00 · 13:30–17:00</td></tr>
+            <tr data-d="6" class="off"><th>Samedi</th><td>Fermé</td></tr>
+            <tr data-d="0" class="off"><th>Dimanche</th><td>Fermé</td></tr>
+          </tbody>
+        </table>
+        <div class="phone-hours"><b>Secrétariat téléphonique</b> : 8:00–11:30 et 13:30–16:30. Pour un problème aigu, appelez dès 8h : nous gardons des créneaux pour le jour même.</div>
+      </div>
+      <div class="map">
+        <svg viewBox="0 0 700 380" role="img" aria-label="Plan schématique : le cabinet se trouve Avenue Robert 24 à Fontainemelon">
+          <rect width="700" height="380" fill="var(--sky)"/>
+          <path d="M0 290 C140 250 260 300 400 260 S620 230 700 250 V380 H0Z" fill="var(--mint)"/>
+          <g fill="none" stroke="var(--surface)" stroke-linecap="round">
+            <path d="M-20 210 C160 190 360 230 720 170" stroke-width="22"/>
+            <path d="M250 -20 C270 120 240 260 300 400" stroke-width="14"/>
+            <path d="M520 -20 C500 120 560 260 520 400" stroke-width="12"/>
+            <path d="M0 80 C200 100 420 60 700 90" stroke-width="10"/>
           </g>
-          <!-- arbres -->
-          <g fill="#2f5a4c"><circle cx="60" cy="300" r="18"/><rect x="58" y="300" width="4" height="26"/><circle cx="330" cy="292" r="22"/><rect x="328" y="292" width="4" height="30"/></g>
+          <g fill="var(--line)"><rect x="60" y="110" width="120" height="60" rx="8"/><rect x="330" y="100" width="130" height="64" rx="8"/><rect x="580" y="110" width="90" height="50" rx="8"/><rect x="80" y="250" width="110" height="56" rx="8"/><rect x="580" y="250" width="100" height="56" rx="8"/></g>
+          <text x="40" y="200" font-family="Atkinson Hyperlegible Mono, monospace" font-size="13" fill="var(--sky-ink)" transform="rotate(-2 40 200)">Avenue Robert</text>
+          <text x="530" y="40" font-family="Atkinson Hyperlegible Mono, monospace" font-size="13" fill="var(--sky-ink)">→ Cernier</text>
+          <text x="16" y="60" font-family="Atkinson Hyperlegible Mono, monospace" font-size="13" fill="var(--sky-ink)">← Neuchâtel</text>
+          <g transform="translate(395 205)">
+            <circle r="30" fill="var(--pine)" opacity=".18"/>
+            <circle r="15" fill="var(--pine)"/>
+            <path d="M-3 -8h6v5h5v6h-5v5h-6v-5h-5v-6h5z" fill="var(--on-pine)"/>
+          </g>
+          <g transform="translate(422 150)"><rect width="196" height="42" rx="10" fill="var(--surface)" stroke="var(--line)"/><text x="14" y="27" font-family="Schibsted Grotesk, Arial, sans-serif" font-weight="700" font-size="15" fill="var(--ink)">Cabinet · Av. Robert 24</text></g>
         </svg>
-      </div>
-      <div class="hero-card">
-        <span class="dot"></span>
-        <div><small>Aujourd'hui</small><b>Ouvert · 8h00 – 18h00</b></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap quick">
-    <div class="quick-grid">
-      <div class="quick-item">
-        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></div>
-        <h3>Téléphone</h3><p>032 853 49 53<small>Secrétariat</small></p>
-      </div>
-      <div class="quick-item">
-        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-        <h3>Adresse</h3><p>Av. Robert 24<small>2052 Fontainemelon</small></p>
-      </div>
-      <div class="quick-item">
-        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-        <h3>Horaires</h3><p>Lun – Ven<small>8h00 – 12h00 · 13h30 – 18h00</small></p>
-      </div>
-      <div class="quick-item">
-        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/></svg></div>
-        <h3>Nouveaux patients</h3><p>Bienvenus<small>Selon disponibilités</small></p>
+        <div class="access">
+          <div><b>En bus</b><span>Lignes TransN, arrêt Fontainemelon</span></div>
+          <div><b>En voiture</b><span>Places patients devant le cabinet</span></div>
+          <div><b>Accessibilité</b><span>Entrée de plain-pied</span></div>
+          <div><b>Itinéraire</b><span><a href="https://www.google.com/maps/search/?api=1&query=Avenue+Robert+24+2052+Fontainemelon">Ouvrir dans Google Maps ↗</a></span></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="prestations">
+<section class="sec urg-sec" id="urgences">
   <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Prestations</div>
-      <h2>Une prise en charge complète, près de chez vous</h2>
-      <p>Notre cabinet de groupe réunit des médecins en médecine interne générale et une équipe d'assistantes médicales pour un suivi global et coordonné.</p>
+    <div class="sec-head">
+      <div><span class="label">Urgences</span><h2>Qui appeler, et quand</h2></div>
+      <p>Si vous hésitez, appelez. Ces numéros sont valables pour tout le canton de Neuchâtel.</p>
     </div>
-    <div class="services-grid">
-      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/></svg></div><h3>Médecine générale</h3><p>Consultations pour adultes et enfants, bilans de santé et certificats médicaux.</p></div>
-      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div><h3>Maladies chroniques</h3><p>Suivi du diabète, de l'hypertension, des maladies cardiovasculaires et respiratoires.</p></div>
-      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.7 3h10.6a2 2 0 0 0 1.7-3l-5-9V3"/></svg></div><h3>Laboratoire</h3><p>Prises de sang et analyses courantes réalisées sur place, résultats rapides.</p></div>
-      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>Prévention & vaccins</h3><p>Vaccinations, conseils aux voyageurs, dépistages et check-ups.</p></div>
-      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>ECG & examens</h3><p>Électrocardiogramme, spirométrie et petits examens complémentaires au cabinet.</p></div>
-      <div class="service"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#c8643b" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg></div><h3>Visites à domicile</h3><p>Pour nos patients ne pouvant pas se déplacer, sur demande auprès du secrétariat.</p></div>
+    <div class="triage">
+      <div class="tri red"><h3>Danger de mort</h3><p class="when">Douleur dans la poitrine, difficulté à respirer, perte de connaissance, signes d'AVC.</p><span class="num">144</span></div>
+      <div class="tri"><h3>Le cabinet est fermé</h3><p class="when">Soirs, week-ends et jours fériés, pour un problème qui ne peut pas attendre.</p><span class="num">0848 134 134</span></div>
+      <div class="tri"><h3>Intoxication</h3><p class="when">Médicaments, produits ménagers, plantes, champignons. 24h/24.</p><span class="num">145</span></div>
+      <div class="tri"><h3>Problème aigu en semaine</h3><p class="when">Appelez le cabinet dès 8h : des créneaux sont réservés pour le jour même.</p><span class="num">032 853 49 53</span></div>
     </div>
   </div>
 </section>
 
-<section class="team" id="equipe">
+<section class="sec" id="faq">
   <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Notre équipe</div>
-      <h2>Des médecins de famille engagés</h2>
-      <p>Tous spécialistes FMH en médecine interne générale, nos médecins travaillent ensemble pour assurer la continuité de vos soins.</p>
+    <div class="sec-head">
+      <div><span class="label">Questions fréquentes</span><h2>Avant de venir</h2></div>
+      <p>Les réponses aux questions que l'on nous pose le plus souvent au secrétariat.</p>
     </div>
-    <div class="team-grid">
-      <div class="doc"><div class="ph" style="background:#4f8a73">AB</div><div class="info"><h3>Dr Albert Burki</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
-      <div class="doc"><div class="ph" style="background:#c8643b">CS</div><div class="info"><h3>Dre Chantal Simon</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
-      <div class="doc"><div class="ph" style="background:#2f5a4c">ND</div><div class="info"><h3>Dr Nicolas Della Ricca</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
-      <div class="doc"><div class="ph" style="background:#7fae96">JP</div><div class="info"><h3>Dr Jean-Daniel Pauchard</h3><p>Médecine interne générale</p><span class="tag">FMH</span></div></div>
-    </div>
-    <p class="team-note">Accompagnés par notre équipe d'assistantes médicales, à votre écoute au secrétariat et au laboratoire.</p>
-  </div>
-</section>
-
-<section class="rdv" id="rdv">
-  <div class="wrap">
-    <div class="rdv-main">
-      <div class="eyebrow" style="color:#bcd8ca">Rendez-vous</div>
-      <h2>Réservez votre consultation en quelques clics</h2>
-      <p>Prenez rendez-vous en ligne 24h/24, ou appelez notre secrétariat pendant les heures d'ouverture. Pour une urgence du jour, merci de téléphoner le matin dès 8h.</p>
-      <div class="ctas">
-        <a href="#" class="btn btn-primary">Réserver en ligne</a>
-        <a href="tel:0328534953" class="btn btn-ghost">Appeler le cabinet</a>
-      </div>
-      <div class="circle"></div>
-    </div>
-    <div class="hours">
-      <h3>Horaires d'ouverture</h3>
-      <table>
-        <tr class="today"><td>Lundi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
-        <tr><td>Mardi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
-        <tr><td>Mercredi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
-        <tr><td>Jeudi</td><td>8h00 – 12h00 · 13h30 – 18h00</td></tr>
-        <tr><td>Vendredi</td><td>8h00 – 12h00 · 13h30 – 17h00</td></tr>
-        <tr class="closed"><td>Samedi – Dimanche</td><td>Fermé</td></tr>
-      </table>
-      <p class="note">En dehors de ces horaires, contactez le médecin de garde au 0848 134 134.</p>
+    <div class="faq">
+      <details open><summary>Comment sont facturées les consultations ?</summary><p>Les consultations sont facturées selon le tarif médical suisse en vigueur et remboursées par l'assurance de base, après déduction de votre franchise et de votre quote-part.</p></details>
+      <details><summary>J'ai un modèle d'assurance « médecin de famille ». Que dois-je faire ?</summary><p>Indiquez-le au secrétariat lors de votre inscription. Votre médecin du cabinet sera alors votre premier interlocuteur et établira les éventuels bons de délégation vers un spécialiste.</p></details>
+      <details><summary>Combien de temps faut-il pour renouveler une ordonnance ?</summary><p>Comptez 48 heures ouvrables. Vous pouvez faire la demande en ligne ou par téléphone, et venir la chercher au cabinet ou la faire envoyer à votre pharmacie.</p></details>
+      <details><summary>Comment annuler un rendez-vous ?</summary><p>Merci de nous prévenir au moins 24 heures à l'avance, en ligne ou par téléphone. Ce créneau pourra ainsi être proposé à un autre patient.</p></details>
+      <details><summary>Comment recevoir mes résultats de laboratoire ?</summary><p>Nous vous appelons si un résultat demande une action. Sinon, ils sont discutés lors de votre prochaine consultation ou par téléphone avec votre médecin.</p></details>
     </div>
   </div>
 </section>
-
-<section id="urgences" style="padding-top:0">
-  <div class="wrap">
-    <div class="section-head">
-      <div class="eyebrow">Urgences</div>
-      <h2>En cas d'urgence</h2>
-    </div>
-    <div class="urg-grid">
-      <div class="urg red"><h3>Urgence vitale</h3><span class="num">144</span><p>Ambulance – douleur thoracique, difficulté à respirer, perte de connaissance.</p></div>
-      <div class="urg"><h3>Médecin de garde</h3><span class="num">0848 134 134</span><p>Canton de Neuchâtel, soirs, week-ends et jours fériés.</p></div>
-      <div class="urg"><h3>Tox Info Suisse</h3><span class="num">145</span><p>Intoxications et empoisonnements, 24h/24.</p></div>
-    </div>
-  </div>
-</section>
-
-<section class="access" id="acces" style="background:var(--surface);border-top:1px solid var(--line)">
-  <div class="wrap">
-    <div>
-      <div class="eyebrow">Accès</div>
-      <h2 style="font-size:clamp(30px,3.6vw,44px)">Nous trouver</h2>
-      <ul>
-        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><b>Avenue Robert 24</b><span>2052 Fontainemelon</span></div></li>
-        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="14" rx="2"/><path d="M4 11h16M8 21l-2-4M16 21l2-4"/></svg></div><div><b>Transports publics</b><span>Bus TransN – arrêt Fontainemelon, à quelques minutes à pied</span></div></li>
-        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg></div><div><b>Parking</b><span>Places réservées aux patients devant le cabinet</span></div></li>
-        <li><div class="ico"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"/><path d="M12 6v7l4 6M8 21a5 5 0 1 1 7-7"/></svg></div><div><b>Accessibilité</b><span>Cabinet accessible aux personnes à mobilité réduite</span></div></li>
-      </ul>
-    </div>
-    <div class="map">
-      <svg viewBox="0 0 640 440" preserveAspectRatio="xMidYMid slice">
-        <rect width="640" height="440" fill="#ece7db"/>
-        <path d="M0 120 Q200 90 320 140 T640 110" stroke="#d6cfbf" stroke-width="40" fill="none"/>
-        <path d="M-20 300 L660 240" stroke="#fff" stroke-width="22"/>
-        <path d="M200 -20 L260 460" stroke="#fff" stroke-width="16"/>
-        <path d="M430 -20 Q400 200 470 460" stroke="#fff" stroke-width="12" fill="none"/>
-        <path d="M0 400 Q300 360 640 380" stroke="#fff" stroke-width="10" fill="none"/>
-        <g fill="#d9e6dd"><rect x="40" y="170" width="120" height="80" rx="8"/><rect x="290" y="300" width="110" height="60" rx="8"/><rect x="500" y="140" width="110" height="70" rx="8"/></g>
-        <g fill="#ddd5c4"><rect x="290" y="160" width="100" height="56" rx="6"/><rect x="40" y="320" width="130" height="50" rx="6"/><rect x="490" y="290" width="120" height="60" rx="6"/></g>
-        <text x="330" y="262" font-family="Inter" font-size="13" fill="#8a8273" transform="rotate(-5 330 262)">Avenue Robert</text>
-        <g transform="translate(320 250)">
-          <circle r="34" fill="#c8643b" opacity=".15"/>
-          <path d="M0 -44 C-18 -44 -26 -30 -26 -20 C-26 -4 0 14 0 14 C0 14 26 -4 26 -20 C26 -30 18 -44 0 -44Z" fill="#c8643b"/>
-          <circle cy="-22" r="9" fill="#fff"/>
-        </g>
-        <g transform="translate(360 196)"><rect width="176" height="40" rx="10" fill="#fff"/><text x="14" y="25" font-family="Inter" font-size="14" font-weight="600" fill="#1f3a32">Cabinet médical</text></g>
-      </svg>
-    </div>
-  </div>
-</section>
+</main>
 
 <footer>
   <div class="wrap">
-    <div class="cols">
+    <div class="f-grid">
       <div>
-        <div class="logo" style="margin-bottom:16px">
-          <div class="logo-mark" style="background:#4f8a73"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" fill="#fff"/></svg></div>
-          <div class="logo-text"><b>Cabinet médical de groupe</b><span>Fontainemelon</span></div>
-        </div>
-        <p style="max-width:280px">Médecine de famille pour tout le Val-de-Ruz.</p>
+        <a class="brand" href="#" style="margin-bottom:14px">
+          <svg width="40" height="40" viewBox="0 0 44 44" aria-hidden="true"><rect width="44" height="44" rx="12" fill="var(--pine)"/><path d="M6 31c5-6 10-8 16-5s11 2 16-4" fill="none" stroke="var(--on-pine)" stroke-width="2.4" stroke-linecap="round"/><path d="M19.5 8h5v5h5v5h-5v5h-5v-5h-5v-5h5z" fill="var(--on-pine)"/></svg>
+          <div><b>Cabinet médical de groupe</b><span>Fontainemelon</span></div>
+        </a>
+        <p style="color:var(--muted);max-width:34ch">Médecine de famille pour les habitants du Val-de-Ruz.</p>
       </div>
-      <div><h4>Contact</h4><ul><li>032 853 49 53</li><li>Avenue Robert 24</li><li>2052 Fontainemelon</li></ul></div>
-      <div><h4>Liens</h4><ul><li><a href="#prestations">Prestations</a></li><li><a href="#equipe">Équipe</a></li><li><a href="#rdv">Rendez-vous</a></li><li><a href="#acces">Accès</a></li></ul></div>
-      <div><h4>Urgences</h4><ul><li>Urgence vitale : 144</li><li>Garde NE : 0848 134 134</li><li>Tox Info : 145</li></ul></div>
+      <div><h4>Contact</h4><ul><li><a href="tel:+41328534953">032 853 49 53</a></li><li>Avenue Robert 24</li><li>2052 Fontainemelon</li></ul></div>
+      <div><h4>Patients</h4><ul><li><a href="#rdv">Prendre rendez-vous</a></li><li><a href="#nouveaux">Nouveaux patients</a></li><li><a href="#faq">Questions fréquentes</a></li></ul></div>
+      <div><h4>Urgences</h4><ul><li>Urgence vitale : 144</li><li>Médecin de garde : 0848 134 134</li><li>Tox Info Suisse : 145</li></ul></div>
     </div>
-    <div class="bottom"><span>© 2026 Cabinet médical de groupe de Fontainemelon</span><span>Mentions légales · Protection des données</span></div>
+    <div class="f-bottom"><span>© 2026 Cabinet médical de groupe de Fontainemelon</span><span>Mentions légales · Protection des données</span></div>
   </div>
 </footer>
 
-<div class="mock-badge">Maquette – contenu à valider</div>
+<div class="mbar">
+  <a class="btn btn-line" href="tel:+41328534953">Appeler</a>
+  <a class="btn btn-pine" href="#">Rendez-vous</a>
+</div>
+<div class="mock">Maquette · contenu à valider</div>
+
+<script>
+(function(){
+  // Horaires : [jour] = liste de plages [début, fin] en heures décimales
+  var H={1:[[8,12],[13.5,18]],2:[[8,12],[13.5,18]],3:[[8,12],[13.5,18]],4:[[8,12],[13.5,18]],5:[[8,12],[13.5,17]],6:[],0:[]};
+  var JOURS=["dimanche","lundi","mardi","mercredi","jeudi","vendredi","samedi"];
+  var MOIS=["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"];
+  function fmt(h){var m=Math.round((h%1)*60);return Math.floor(h)+"h"+(m?String(m).padStart(2,"0"):"00");}
+  function zurichNow(){
+    try{
+      var p={};new Intl.DateTimeFormat("en-GB",{timeZone:"Europe/Zurich",weekday:"short",year:"numeric",month:"numeric",day:"numeric",hour:"numeric",minute:"numeric",hour12:false})
+        .formatToParts(new Date()).forEach(function(x){p[x.type]=x.value;});
+      var wd={Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[p.weekday];
+      return {d:wd,h:(+p.hour%24)+(+p.minute)/60,day:+p.day,month:+p.month-1};
+    }catch(e){var n=new Date();return {d:n.getDay(),h:n.getHours()+n.getMinutes()/60,day:n.getDate(),month:n.getMonth()};}
+  }
+  var n=zurichNow(), slots=H[n.d], el=document.getElementById("status");
+  document.getElementById("st-date").textContent=JOURS[n.d].charAt(0).toUpperCase()+JOURS[n.d].slice(1)+" "+n.day+" "+MOIS[n.month];
+  var open=null,next=null;
+  slots.forEach(function(s){if(n.h>=s[0]&&n.h<s[1])open=s;});
+  if(!open){slots.forEach(function(s){if(!next&&s[0]>n.h)next={d:n.d,h:s[0],today:true};});}
+  if(!open&&!next){for(var i=1;i<=7;i++){var d=(n.d+i)%7;if(H[d].length){next={d:d,h:H[d][0][0],tomorrow:i===1};break;}}}
+  var st=document.getElementById("st-state"),nx=document.getElementById("st-next");
+  if(open){el.classList.add("is-open");st.textContent="Ouvert maintenant";nx.textContent="Ferme à "+fmt(open[1])+(open[1]===12?", réouvre à 13h30":"");}
+  else{el.classList.add("is-closed");st.textContent="Fermé";nx.textContent="Réouvre "+(next.today?"aujourd'hui":next.tomorrow?"demain":JOURS[next.d])+" à "+fmt(next.h)+". Urgence : 144 · garde : 0848 134 134";}
+  // barre du jour 7h–19h
+  var bar=document.getElementById("bar");bar.innerHTML="";
+  var rng=document.getElementById("st-range");
+  rng.textContent=slots.length?slots.map(function(s){return fmt(s[0])+"–"+fmt(s[1]);}).join(" · "):"Fermé toute la journée";
+  slots.forEach(function(s){var b=document.createElement("span");b.className="blk";b.style.left=((s[0]-7)/12*100)+"%";b.style.width=((s[1]-s[0])/12*100)+"%";bar.appendChild(b);});
+  if(n.h>=7&&n.h<=19){var m=document.createElement("span");m.className="now";m.style.left="calc("+((n.h-7)/12*100)+"% - 1.5px)";m.title="Maintenant";bar.appendChild(m);}
+  // jour courant dans le tableau
+  var row=document.querySelector('#hours tr[data-d="'+n.d+'"]');if(row)row.classList.add("today");
+})();
+</script>
 </body>
 </html>
